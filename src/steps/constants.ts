@@ -2,9 +2,10 @@ import { StepEntityMetadata } from '@jupiterone/integration-sdk-core';
 
 export const Steps = {
   ACCOUNT: 'fetch-account',
+  DROPLETS: 'fetch-droplets',
 };
 
-export const Entities: Record<'ACCOUNT', StepEntityMetadata> = {
+export const Entities: Record<'ACCOUNT' | 'DROPLET', StepEntityMetadata> = {
   ACCOUNT: {
     resourceName: 'Account',
     _type: 'digitalocean_account',
@@ -41,6 +42,11 @@ export const Entities: Record<'ACCOUNT', StepEntityMetadata> = {
         'volumeLimit',
       ],
     },
+  },
+  DROPLET: {
+    resourceName: 'Droplet',
+    _type: 'digitalocean_droplet',
+    _class: ['Host'],
   },
 };
 
