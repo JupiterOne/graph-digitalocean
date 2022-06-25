@@ -1,9 +1,18 @@
 import {
+  Entity,
+  IntegrationInstanceConfig,
+  IntegrationInvocationConfig,
+  Relationship,
+} from '@jupiterone/integration-sdk-core';
+import {
   setupRecording,
   Recording,
   SetupRecordingInput,
   mutations,
+  executeStepWithDependencies,
+  StepTestConfig,
 } from '@jupiterone/integration-sdk-testing';
+import { buildStepTestConfigForStep } from './config';
 
 export { Recording };
 
@@ -15,60 +24,128 @@ export function setupProjectRecording(
     redactedRequestHeaders: ['Authorization'],
     redactedResponseHeaders: ['set-cookie'],
     mutateEntry: mutations.unzipGzippedRecordingEntry,
-    /*mutateEntry: (entry) => {
-      redact(entry);
-    },*/
   });
 }
 
-// a more sophisticated redaction example below:
-
-/*
-function getRedactedOAuthResponse() {
-  return {
-    access_token: '[REDACTED]',
-    expires_in: 9999,
-    token_type: 'Bearer',
-  };
+function redact(entry) {
+  mutations.unzipGzippedRecordingEntry(entry);
+  const DEFAULT_REDACT = '[REDACTED]';
+  const keysToRedactMap = new Map();
+  const response = JSON.parse(entry.response.content.text);
+  console.log(response);
+  if (response.account) {
+    response.account = redactAccount(response.account);
+  }
+  entry.response.content.text = JSON.stringify(response);
 }
 
-function redact(entry): void {
-  if (entry.request.postData) {
-    entry.request.postData.text = '[REDACTED]';
+function redactAccount(account) {
+  account['email'] = 'first.last@example.com';
+  return account;
+}
+
+type WithRecordingParams = {
+  recordingName: string;
+  directoryName: string;
+  recordingSetupOptions?: SetupRecordingInput['options'];
+};
+
+export async function withRecording(
+  { recordingName, directoryName, recordingSetupOptions }: WithRecordingParams,
+  cb: () => Promise<void>,
+) {
+  const recording = setupRecording({
+    directory: directoryName,
+    name: recordingName,
+    options: {
+      ...(recordingSetupOptions || {}),
+    },
+    mutateEntry: (entry) => {
+      redact(entry);
+    },
+  });
+
+  try {
+    await cb();
+  } finally {
+    await recording.stop();
   }
+}
 
-  if (!entry.response.content.text) {
-    return;
-  }
+type AfterStepCollectionExecutionParams = {
+  stepConfig: StepTestConfig<
+    IntegrationInvocationConfig<IntegrationInstanceConfig>,
+    IntegrationInstanceConfig
+  >;
+  stepResult: {
+    collectedEntities: Entity[];
+    collectedRelationships: Relationship[];
+    collectedData: {
+      [key: string]: any;
+    };
+    encounteredTypes: string[];
+  };
+};
 
-  //let's unzip the entry so we can modify it
-  mutations.unzipGzippedRecordingEntry(entry);
+type CreateStepCollectionTestParams = WithRecordingParams & {
+  stepId: string;
+  afterExecute?: (params: AfterStepCollectionExecutionParams) => Promise<void>;
+};
 
-  //we can just get rid of all response content if this was the token call
-  const requestUrl = entry.request.url;
-  if (requestUrl.match(/oauth\/token/)) {
-    entry.response.content.text = JSON.stringify(getRedactedOAuthResponse());
-    return;
-  }
+function isMappedRelationship(r: Relationship): boolean {
+  return !!r._mapping;
+}
 
-  //if it wasn't a token call, parse the response text, removing any carriage returns or newlines
-  const responseText = entry.response.content.text;
-  const parsedResponseText = JSON.parse(responseText.replace(/\r?\n|\r/g, ''));
+function filterDirectRelationships(
+  relationships: Relationship[],
+): Relationship[] {
+  return relationships.filter((r) => !isMappedRelationship(r));
+}
 
-  //now we can modify the returned object as desired
-  //in this example, if the return text is an array of objects that have the 'tenant' property...
-  if (parsedResponseText[0]?.tenant) {
-    for (let i = 0; i < parsedResponseText.length; i++) {
-      parsedResponseText[i].client_secret = '[REDACTED]';
-      parsedResponseText[i].jwt_configuration = '[REDACTED]';
-      parsedResponseText[i].signing_keys = '[REDACTED]';
-      parsedResponseText[i].encryption_key = '[REDACTED]';
-      parsedResponseText[i].addons = '[REDACTED]';
-      parsedResponseText[i].client_metadata = '[REDACTED]';
-      parsedResponseText[i].mobile = '[REDACTED]';
-      parsedResponseText[i].native_social_login = '[REDACTED]';
-    }
-  }
+export function createStepCollectionTest({
+  recordingName,
+  directoryName,
+  recordingSetupOptions,
+  stepId,
+  afterExecute,
+}: CreateStepCollectionTestParams) {
+  return async () => {
+    await withRecording(
+      {
+        directoryName,
+        recordingName,
+        recordingSetupOptions,
+      },
+      async () => {
+        const stepConfig = buildStepTestConfigForStep(stepId);
+        const stepResult = await executeStepWithDependencies(stepConfig);
 
-  entry.response.content.text = JSON.stringify(parsedResponseText);
-} */
+        expect({
+          ...stepResult,
+          // HACK (austinkelleher): `@jupiterone/integration-sdk-testing`
+          // does not currently support `toMatchStepMetadata` with mapped
+          // relationships, which is causing tests to fail. We will add
+          // support soon and remove this hack.
+          collectedRelationships: filterDirectRelationships(
+            stepResult.collectedRelationships,
+          ),
+        }).toMatchStepMetadata({
+          ...stepConfig,
+          invocationConfig: {
+            ...stepConfig.invocationConfig,
+            integrationSteps: stepConfig.invocationConfig.integrationSteps.map(
+              (s) => {
+                return {
+                  ...s,
+                  mappedRelationships: [],
+                };
+              },
+            ),
+          },
+        });
+
+        if (afterExecute) await afterExecute({ stepResult, stepConfig });
+      },
+    );
+  };
+}
