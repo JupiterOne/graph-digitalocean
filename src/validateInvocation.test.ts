@@ -1,9 +1,6 @@
-import {
-  createMockExecutionContext,
-  Recording,
-} from '@jupiterone/integration-sdk-testing';
+import { createMockExecutionContext } from '@jupiterone/integration-sdk-testing';
 import { integrationConfig } from '../test/config';
-import { setupProjectRecording, withRecording } from '../test/recording';
+import { withRecording } from '../test/recording';
 import { IntegrationConfig, validateInvocation } from './config';
 
 describe('#validateInvocation', () => {

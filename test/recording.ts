@@ -29,8 +29,8 @@ export function setupProjectRecording(
 
 function redact(entry) {
   mutations.unzipGzippedRecordingEntry(entry);
-  const DEFAULT_REDACT = '[REDACTED]';
-  const keysToRedactMap = new Map();
+  // const DEFAULT_REDACT = '[REDACTED]';
+  // const keysToRedactMap = new Map();
   const response = JSON.parse(entry.response.content.text);
   console.log(response);
   if (response.account) {

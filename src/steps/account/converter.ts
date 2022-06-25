@@ -2,7 +2,7 @@ import {
   createIntegrationEntity,
   Entity,
 } from '@jupiterone/integration-sdk-core';
-import { DigitalOceanAccount } from '../../types';
+import { DigitalOceanAccount } from '../../types/accountType';
 
 import { Entities } from '../constants';
 

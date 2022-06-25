@@ -1,6 +1,9 @@
 import { IntegrationConfig } from './config';
 import { request } from 'gaxios';
-import { DigitalOceanAccount, DigitalOceanAccountResponse } from './types';
+import {
+  DigitalOceanAccount,
+  DigitalOceanAccountResponse,
+} from './types/accountType';
 import {
   IntegrationProviderAPIError,
   IntegrationProviderAuthenticationError,
@@ -37,7 +40,7 @@ export class APIClient {
       });
       return response.data.account;
     } catch (err) {
-      this.throwIntegrationError(
+      throw this.createIntegrationError(
         err.response.status,
         err.response.statusText,
         this.BASE_URL + url,
@@ -45,26 +48,28 @@ export class APIClient {
     }
   }
 
-  private throwIntegrationError(
+  //async iterateDroplets
+
+  private createIntegrationError(
     status: number,
     statusText: string,
     endpoint: string,
   ) {
     switch (status) {
       case 401:
-        throw new IntegrationProviderAuthenticationError({
+        return new IntegrationProviderAuthenticationError({
           status,
           statusText,
           endpoint,
         });
       case 403:
-        throw new IntegrationProviderAuthorizationError({
+        return new IntegrationProviderAuthorizationError({
           status,
           statusText,
           endpoint,
         });
       default:
-        throw new IntegrationProviderAPIError({
+        return new IntegrationProviderAPIError({
           status,
           statusText,
           endpoint,
