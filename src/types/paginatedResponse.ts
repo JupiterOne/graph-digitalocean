@@ -1,4 +1,4 @@
-export type DataKey = 'droplets';
+export type DataKey = 'droplets' | 'projects';
 
 export type PaginatedResponse<K extends DataKey, T> = {
   [key in K]: T[];

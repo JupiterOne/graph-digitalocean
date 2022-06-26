@@ -100,6 +100,7 @@ The following entities are created:
 | --------- | ---------------------- | --------------- |
 | Account   | `digitalocean_account` | `Account`       |
 | Droplet   | `digitalocean_droplet` | `Host`          |
+| Project   | `digitalocean_project` | `Project`       |
 
 <!--
 ********************************************************************************

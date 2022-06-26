@@ -11,6 +11,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { DataKey, PaginatedResponse } from './types/paginatedResponse';
 import { DigitalOceanDroplet } from './types/dropletType';
+import { DigitalOceanProject } from './types/projectType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -35,7 +36,7 @@ export class APIClient {
     this.accessToken = config.accessToken;
   }
 
-  async iterateResources<T>(
+  private async iterateResources<T>(
     { url, dataKey }: IterateResourcesParams,
     iteratee: ResourceIteratee<T>,
   ): Promise<void> {
@@ -55,6 +56,16 @@ export class APIClient {
       }
       next = response.data.links?.pages?.next;
     } while (next);
+  }
+
+  async iterateProjects(iteratee: ResourceIteratee<DigitalOceanProject>) {
+    await this.iterateResources<DigitalOceanProject>(
+      {
+        url: '/v2/projects',
+        dataKey: 'projects',
+      },
+      iteratee,
+    );
   }
 
   async iterateDroplets(iteratee: ResourceIteratee<DigitalOceanDroplet>) {

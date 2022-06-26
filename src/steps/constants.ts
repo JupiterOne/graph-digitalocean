@@ -3,9 +3,13 @@ import { StepEntityMetadata } from '@jupiterone/integration-sdk-core';
 export const Steps = {
   ACCOUNT: 'fetch-account',
   DROPLETS: 'fetch-droplets',
+  PROJECTS: 'fetch-projects',
 };
 
-export const Entities: Record<'ACCOUNT' | 'DROPLET', StepEntityMetadata> = {
+export const Entities: Record<
+  'ACCOUNT' | 'DROPLET' | 'PROJECT',
+  StepEntityMetadata
+> = {
   ACCOUNT: {
     resourceName: 'Account',
     _type: 'digitalocean_account',
@@ -47,6 +51,11 @@ export const Entities: Record<'ACCOUNT' | 'DROPLET', StepEntityMetadata> = {
     resourceName: 'Droplet',
     _type: 'digitalocean_droplet',
     _class: ['Host'],
+  },
+  PROJECT: {
+    resourceName: 'Project',
+    _type: 'digitalocean_project',
+    _class: ['Project'],
   },
 };
 
