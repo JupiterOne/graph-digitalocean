@@ -10,7 +10,7 @@ import { createDomainEntity } from './converter';
 export const domainSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: Steps.DOMAINS,
-    name: 'Fetch Droplets',
+    name: 'Fetch Domains',
     entities: [Entities.DOMAIN],
     relationships: [],
     dependsOn: [],
@@ -18,6 +18,8 @@ export const domainSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
+// TODO: Would it be better to have domain as the target of an mapped
+// relationship since the domain itself might exist elsewhere in the graph
 export async function fetchDroplets({
   instance,
   jobState,
