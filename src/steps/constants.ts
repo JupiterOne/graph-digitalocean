@@ -95,13 +95,19 @@ export const Entities: Record<
 };
 
 export const Relationships: Record<
-  'DROPLET_USES_VOLUME',
+  'DROPLET_USES_VOLUME' | 'ACCOUNT_HAS_PROJECT',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
-    sourceType: 'digitalocean_droplet',
-    targetType: 'digitalocean_volume',
+    sourceType: Entities.DROPLET._type,
+    targetType: Entities.VOLUME._type,
     _type: 'digitalocean_droplet_uses_volume',
     _class: RelationshipClass.USES,
+  },
+  ACCOUNT_HAS_PROJECT: {
+    sourceType: Entities.ACCOUNT._type,
+    targetType: Entities.PROJECT._type,
+    _type: 'digitalocean_account_has_project',
+    _class: RelationshipClass.HAS,
   },
 };

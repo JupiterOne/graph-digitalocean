@@ -110,9 +110,10 @@ The following entities are created:
 
 The following relationships are created:
 
-| Source Entity `_type`  | Relationship `_class` | Target Entity `_type` |
-| ---------------------- | --------------------- | --------------------- |
-| `digitalocean_droplet` | **USES**              | `digitalocean_volume` |
+| Source Entity `_type`  | Relationship `_class` | Target Entity `_type`  |
+| ---------------------- | --------------------- | ---------------------- |
+| `digitalocean_account` | **HAS**               | `digitalocean_project` |
+| `digitalocean_droplet` | **USES**              | `digitalocean_volume`  |
 
 <!--
 ********************************************************************************
