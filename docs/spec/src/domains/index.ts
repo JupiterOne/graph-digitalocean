@@ -4,7 +4,7 @@ import { IntegrationConfig } from '../../../../src/config';
 export const domainSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
-     * ENDPOINT: n/a
+     * ENDPOINT: v2/domains
      * PATTERN: iterateResources
      */
     id: 'fetch-domains',
@@ -18,6 +18,20 @@ export const domainSpec: StepSpec<IntegrationConfig>[] = [
     ],
     relationships: [],
     dependsOn: [],
+    implemented: true,
+  },
+  {
+    id: 'fetch-domain-records',
+    name: 'Fetch Domain Records',
+    entities: [
+      {
+        resourceName: 'Domain Record',
+        _type: 'digitalocean_domain_record',
+        _class: ['DomainRecord'],
+      },
+    ],
+    relationships: [],
+    dependsOn: ['fetch-domains'],
     implemented: true,
   },
 ];

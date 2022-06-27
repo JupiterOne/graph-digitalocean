@@ -1,5 +1,8 @@
 import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
-import { DigitalOceanDomain } from '../../types/domainType';
+import {
+  DigitalOceanDomain,
+  DigitalOceanDomainRecord,
+} from '../../types/domainType';
 import { Entities } from '../constants';
 
 function createDomainKey(domain: DigitalOceanDomain) {
@@ -18,6 +21,26 @@ export function createDomainEntity(domain: DigitalOceanDomain) {
         displayName: domain.name,
         domainName: domain.name,
         timeToLive: domain.ttl,
+      },
+    },
+  });
+}
+
+export function createDomainRecordEntity(
+  domainRecord: DigitalOceanDomainRecord,
+) {
+  return createIntegrationEntity({
+    entityData: {
+      source: domainRecord,
+      assign: {
+        _key: 'digitalocean_domain_record' + domainRecord.id.toString(),
+        _type: Entities.DOMAIN_RECORD._type,
+        _class: Entities.DOMAIN_RECORD._class,
+        name: domainRecord.name,
+        displayName: domainRecord.type + domainRecord.name + domainRecord.data,
+        description: domainRecord.type,
+        TTL: domainRecord.ttl,
+        value: domainRecord.data,
       },
     },
   });

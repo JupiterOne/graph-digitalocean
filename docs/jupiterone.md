@@ -96,13 +96,14 @@ https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources | Entity `_type`         | Entity `_class`     |
-| --------- | ---------------------- | ------------------- |
-| Account   | `digitalocean_account` | `Account`           |
-| Domain    | `digitalocean_domain`  | `Domain`            |
-| Droplet   | `digitalocean_droplet` | `Host`              |
-| Project   | `digitalocean_project` | `Project`           |
-| Volume    | `digitalocean_volume`  | `DataStore`, `Disk` |
+| Resources     | Entity `_type`               | Entity `_class`     |
+| ------------- | ---------------------------- | ------------------- |
+| Account       | `digitalocean_account`       | `Account`           |
+| Domain        | `digitalocean_domain`        | `Domain`            |
+| Domain Record | `digitalocean_domain_record` | `DomainRecord`      |
+| Droplet       | `digitalocean_droplet`       | `Host`              |
+| Project       | `digitalocean_project`       | `Project`           |
+| Volume        | `digitalocean_volume`        | `DataStore`, `Disk` |
 
 ### Relationships
 

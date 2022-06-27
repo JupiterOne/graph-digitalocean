@@ -5,7 +5,7 @@ import {
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { Entities, Steps } from '../constants';
-import { createDomainEntity } from './converter';
+import { createDomainEntity, createDomainRecordEntity } from './converter';
 
 export const domainSteps: IntegrationStep<IntegrationConfig>[] = [
   {
@@ -15,6 +15,14 @@ export const domainSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [],
     dependsOn: [],
     executionHandler: fetchDroplets,
+  },
+  {
+    id: Steps.DOMAIN_RECORDS,
+    name: 'Fetch Domain Records',
+    entities: [Entities.DOMAIN_RECORD],
+    relationships: [],
+    dependsOn: [Steps.DOMAINS],
+    executionHandler: fetchDomainsRecords,
   },
 ];
 
@@ -28,4 +36,22 @@ export async function fetchDroplets({
   await client.iterateDomains(async (domain) => {
     await jobState.addEntity(createDomainEntity(domain));
   });
+}
+
+export async function fetchDomainsRecords({
+  instance,
+  jobState,
+}: IntegrationStepExecutionContext<IntegrationConfig>) {
+  const client = createAPIClient(instance.config);
+  await jobState.iterateEntities(
+    { _type: Entities.DOMAIN._type },
+    async (domain) => {
+      await client.iterateDomainRecords(
+        domain.domainName as string,
+        async (record) => {
+          await jobState.addEntity(createDomainRecordEntity(record));
+        },
+      );
+    },
+  );
 }

@@ -1,5 +1,5 @@
 import { IntegrationConfig } from './config';
-import { request } from 'gaxios';
+import { GaxiosError, request } from 'gaxios';
 import {
   DigitalOceanAccount,
   DigitalOceanAccountResponse,
@@ -13,7 +13,10 @@ import { DataKey, PaginatedResponse } from './types/paginatedResponse';
 import { DigitalOceanDroplet } from './types/dropletType';
 import { DigitalOceanProject } from './types/projectType';
 import { DigitalOceanVolume } from './types/volumeType';
-import { DigitalOceanDomain } from './types/domainType';
+import {
+  DigitalOceanDomain,
+  DigitalOceanDomainRecord,
+} from './types/domainType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -45,19 +48,44 @@ export class APIClient {
     let next: string | undefined = this.BASE_URL + url;
 
     do {
-      const response = await request<PaginatedResponse<typeof dataKey, T>>({
-        url: next,
-        headers: {
-          Authorization: `Bearer ${this.accessToken}`,
-        },
-      });
+      try {
+        const response = await request<PaginatedResponse<typeof dataKey, T>>({
+          url: next,
+          headers: {
+            Authorization: `Bearer ${this.accessToken}`,
+          },
+        });
 
-      const data = response.data[dataKey];
-      for (const datum of data) {
-        await iteratee(datum);
+        const data = response.data[dataKey];
+        for (const datum of data) {
+          await iteratee(datum);
+        }
+        next = response.data.links?.pages?.next;
+      } catch (err) {
+        if (err instanceof GaxiosError) {
+          throw this.createIntegrationError(
+            err.response?.status as number,
+            err.response?.statusText as string,
+            next as string,
+          );
+        } else {
+          throw err;
+        }
       }
-      next = response.data.links?.pages?.next;
     } while (next);
+  }
+
+  async iterateDomainRecords(
+    domainName: string,
+    iteratee: ResourceIteratee<DigitalOceanDomainRecord>,
+  ) {
+    await this.iterateResources<DigitalOceanDomainRecord>(
+      {
+        url: `/v2/${domainName}/records`,
+        dataKey: 'domain_records',
+      },
+      iteratee,
+    );
   }
 
   async iterateDomains(iteratee: ResourceIteratee<DigitalOceanDomain>) {
