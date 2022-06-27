@@ -3,7 +3,8 @@ export type DataKey =
   | 'projects'
   | 'volumes'
   | 'domains'
-  | 'domain_records';
+  | 'domain_records'
+  | 'floating_ips';
 
 export type PaginatedResponse<K extends DataKey, T> = {
   [key in K]: T[];

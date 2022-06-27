@@ -11,11 +11,18 @@ export const Steps = {
   VOLUMES: 'fetch-volumes',
   DOMAINS: 'fetch-domains',
   DOMAIN_RECORDS: 'fetch-domain-records',
+  RESERVED_IPS: 'fetch-reserved-ips',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
 export const Entities: Record<
-  'ACCOUNT' | 'DROPLET' | 'PROJECT' | 'VOLUME' | 'DOMAIN' | 'DOMAIN_RECORD',
+  | 'ACCOUNT'
+  | 'DROPLET'
+  | 'PROJECT'
+  | 'VOLUME'
+  | 'DOMAIN'
+  | 'DOMAIN_RECORD'
+  | 'RESERVED_IP',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -79,6 +86,11 @@ export const Entities: Record<
     resourceName: 'Domain Record',
     _type: 'digitalocean_domain_record',
     _class: ['DomainRecord'],
+  },
+  RESERVED_IP: {
+    resourceName: 'Reserved IP',
+    _type: 'digitalocean_reserved_ip',
+    _class: ['IpAddress'],
   },
 };
 

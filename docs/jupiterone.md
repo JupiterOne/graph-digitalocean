@@ -103,6 +103,7 @@ The following entities are created:
 | Domain Record | `digitalocean_domain_record` | `DomainRecord`      |
 | Droplet       | `digitalocean_droplet`       | `Host`              |
 | Project       | `digitalocean_project`       | `Project`           |
+| Reserved IP   | `digitalocean_reserved_ip`   | `IpAddress`         |
 | Volume        | `digitalocean_volume`        | `DataStore`, `Disk` |
 
 ### Relationships

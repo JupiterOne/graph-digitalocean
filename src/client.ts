@@ -17,6 +17,7 @@ import {
   DigitalOceanDomain,
   DigitalOceanDomainRecord,
 } from './types/domainType';
+import { DigitalOceanReservedIP } from './types/ipType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -73,6 +74,16 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateReservedIps(iteratee: ResourceIteratee<DigitalOceanReservedIP>) {
+    await this.iterateResources<DigitalOceanReservedIP>(
+      {
+        url: '/v2/floating_ips',
+        dataKey: 'floating_ips',
+      },
+      iteratee,
+    );
   }
 
   async iterateDomainRecords(
