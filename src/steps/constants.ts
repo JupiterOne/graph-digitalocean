@@ -9,11 +9,12 @@ export const Steps = {
   DROPLETS: 'fetch-droplets',
   PROJECTS: 'fetch-projects',
   VOLUMES: 'fetch-volumes',
+  DOMAINS: 'fetch-domains',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
 export const Entities: Record<
-  'ACCOUNT' | 'DROPLET' | 'PROJECT' | 'VOLUME',
+  'ACCOUNT' | 'DROPLET' | 'PROJECT' | 'VOLUME' | 'DOMAIN',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -67,6 +68,11 @@ export const Entities: Record<
     resourceName: 'Volume',
     _type: 'digitalocean_volume',
     _class: ['DataStore', 'Disk'],
+  },
+  DOMAIN: {
+    resourceName: 'Domain',
+    _type: 'digitalocean_domain',
+    _class: ['Domain'],
   },
 };
 

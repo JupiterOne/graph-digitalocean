@@ -13,6 +13,7 @@ import { DataKey, PaginatedResponse } from './types/paginatedResponse';
 import { DigitalOceanDroplet } from './types/dropletType';
 import { DigitalOceanProject } from './types/projectType';
 import { DigitalOceanVolume } from './types/volumeType';
+import { DigitalOceanDomain } from './types/domainType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -57,6 +58,16 @@ export class APIClient {
       }
       next = response.data.links?.pages?.next;
     } while (next);
+  }
+
+  async iterateDomains(iteratee: ResourceIteratee<DigitalOceanDomain>) {
+    await this.iterateResources<DigitalOceanDomain>(
+      {
+        url: '/v2/domains',
+        dataKey: 'domains',
+      },
+      iteratee,
+    );
   }
 
   async iterateVolumes(iteratee: ResourceIteratee<DigitalOceanVolume>) {
