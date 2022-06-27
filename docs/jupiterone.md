@@ -103,6 +103,14 @@ The following entities are created:
 | Project   | `digitalocean_project` | `Project`           |
 | Volume    | `digitalocean_volume`  | `DataStore`, `Disk` |
 
+### Relationships
+
+The following relationships are created:
+
+| Source Entity `_type`  | Relationship `_class` | Target Entity `_type` |
+| ---------------------- | --------------------- | --------------------- |
+| `digitalocean_droplet` | **USES**              | `digitalocean_volume` |
+
 <!--
 ********************************************************************************
 END OF GENERATED DOCUMENTATION AFTER BELOW MARKER

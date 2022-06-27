@@ -21,6 +21,7 @@ export function createVolumeEntity(volume: DigitalOceanVolume) {
         createdOn: parseTimePropertyValue(volume.description),
         filesystemType: volume.filesystem_type,
         filesystemLabel: volume.filesystem_label,
+        // could add dropletids
 
         classification: null,
         encrypted: null,

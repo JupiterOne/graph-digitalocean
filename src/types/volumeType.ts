@@ -7,7 +7,7 @@ export interface DigitalOceanVolume {
     features: string[];
     available: boolean;
   };
-  droplet_ids: string[];
+  droplet_ids: number[];
   name: string;
   description: string;
   size_gigabytes: number;

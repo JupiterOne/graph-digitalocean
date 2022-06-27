@@ -1,10 +1,15 @@
-import { StepEntityMetadata } from '@jupiterone/integration-sdk-core';
+import {
+  RelationshipClass,
+  StepEntityMetadata,
+  StepRelationshipMetadata,
+} from '@jupiterone/integration-sdk-core';
 
 export const Steps = {
   ACCOUNT: 'fetch-account',
   DROPLETS: 'fetch-droplets',
   PROJECTS: 'fetch-projects',
   VOLUMES: 'fetch-volumes',
+  BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
 export const Entities: Record<
@@ -65,4 +70,14 @@ export const Entities: Record<
   },
 };
 
-//export const Relationships: Record<'', StepRelationshipMetadata> = {};
+export const Relationships: Record<
+  'DROPLET_USES_VOLUME',
+  StepRelationshipMetadata
+> = {
+  DROPLET_USES_VOLUME: {
+    sourceType: 'digitalocean_droplet',
+    targetType: 'digitalocean_volume',
+    _type: 'digitalocean_droplet_uses_volume',
+    _class: RelationshipClass.USES,
+  },
+};
