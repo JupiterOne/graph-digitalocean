@@ -12,6 +12,7 @@ export const Steps = {
   DOMAINS: 'fetch-domains',
   DOMAIN_RECORDS: 'fetch-domain-records',
   RESERVED_IPS: 'fetch-reserved-ips',
+  SSH_KEYS: 'fetch-keys',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
@@ -22,7 +23,8 @@ export const Entities: Record<
   | 'VOLUME'
   | 'DOMAIN'
   | 'DOMAIN_RECORD'
-  | 'RESERVED_IP',
+  | 'RESERVED_IP'
+  | 'SSH_KEY',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -92,10 +94,15 @@ export const Entities: Record<
     _type: 'digitalocean_reserved_ip',
     _class: ['IpAddress'],
   },
+  SSH_KEY: {
+    resourceName: 'SSH Key',
+    _type: 'digitalocean_ssh_key',
+    _class: ['Key', 'AccessKey'],
+  },
 };
 
 export const Relationships: Record<
-  'DROPLET_USES_VOLUME' | 'ACCOUNT_HAS_PROJECT',
+  'DROPLET_USES_VOLUME' | 'ACCOUNT_HAS_PROJECT' | 'ACCOUNT_HAS_SSH_KEY',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -108,6 +115,15 @@ export const Relationships: Record<
     sourceType: Entities.ACCOUNT._type,
     targetType: Entities.PROJECT._type,
     _type: 'digitalocean_account_has_project',
+    _class: RelationshipClass.HAS,
+  },
+  // TODO: Consider a different relationship class for this
+  // It's more common to see ACCESS_KEY_ALLOWS_ACCOUNT
+  // But I'm not 100% sure that's the correct relationship class for this case
+  ACCOUNT_HAS_SSH_KEY: {
+    sourceType: Entities.ACCOUNT._type,
+    targetType: Entities.SSH_KEY._type,
+    _type: 'digitalocean_account_has_ssh_key',
     _class: RelationshipClass.HAS,
   },
 };

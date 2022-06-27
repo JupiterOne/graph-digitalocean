@@ -18,6 +18,7 @@ import {
   DigitalOceanDomainRecord,
 } from './types/domainType';
 import { DigitalOceanReservedIP } from './types/ipType';
+import { DigitalOceanSSHKey } from './types/sshKeyType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -76,11 +77,21 @@ export class APIClient {
     } while (next);
   }
 
+  async iterateSSHKeys(iteratee: ResourceIteratee<DigitalOceanSSHKey>) {
+    await this.iterateResources<DigitalOceanSSHKey>(
+      {
+        url: '/v2/account/keys',
+        dataKey: 'ssh_keys',
+      },
+      iteratee,
+    );
+  }
+
   async iterateReservedIps(iteratee: ResourceIteratee<DigitalOceanReservedIP>) {
     await this.iterateResources<DigitalOceanReservedIP>(
       {
-        url: '/v2/floating_ips',
-        dataKey: 'floating_ips',
+        url: '/v2/reserved_ips',
+        dataKey: 'reserved_ips',
       },
       iteratee,
     );

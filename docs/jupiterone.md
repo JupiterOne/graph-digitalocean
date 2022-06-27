@@ -104,6 +104,7 @@ The following entities are created:
 | Droplet       | `digitalocean_droplet`       | `Host`              |
 | Project       | `digitalocean_project`       | `Project`           |
 | Reserved IP   | `digitalocean_reserved_ip`   | `IpAddress`         |
+| SSH Key       | `digitalocean_ssh_key`       | `Key`, `AccessKey`  |
 | Volume        | `digitalocean_volume`        | `DataStore`, `Disk` |
 
 ### Relationships
@@ -113,6 +114,7 @@ The following relationships are created:
 | Source Entity `_type`  | Relationship `_class` | Target Entity `_type`  |
 | ---------------------- | --------------------- | ---------------------- |
 | `digitalocean_account` | **HAS**               | `digitalocean_project` |
+| `digitalocean_account` | **HAS**               | `digitalocean_ssh_key` |
 | `digitalocean_droplet` | **USES**              | `digitalocean_volume`  |
 
 <!--
