@@ -111,11 +111,12 @@ The following entities are created:
 
 The following relationships are created:
 
-| Source Entity `_type`  | Relationship `_class` | Target Entity `_type`  |
-| ---------------------- | --------------------- | ---------------------- |
-| `digitalocean_account` | **HAS**               | `digitalocean_project` |
-| `digitalocean_account` | **HAS**               | `digitalocean_ssh_key` |
-| `digitalocean_droplet` | **USES**              | `digitalocean_volume`  |
+| Source Entity `_type`  | Relationship `_class` | Target Entity `_type`      |
+| ---------------------- | --------------------- | -------------------------- |
+| `digitalocean_account` | **HAS**               | `digitalocean_project`     |
+| `digitalocean_account` | **HAS**               | `digitalocean_ssh_key`     |
+| `digitalocean_droplet` | **USES**              | `digitalocean_reserved_ip` |
+| `digitalocean_droplet` | **USES**              | `digitalocean_volume`      |
 
 <!--
 ********************************************************************************

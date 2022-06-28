@@ -102,7 +102,10 @@ export const Entities: Record<
 };
 
 export const Relationships: Record<
-  'DROPLET_USES_VOLUME' | 'ACCOUNT_HAS_PROJECT' | 'ACCOUNT_HAS_SSH_KEY',
+  | 'DROPLET_USES_VOLUME'
+  | 'ACCOUNT_HAS_PROJECT'
+  | 'ACCOUNT_HAS_SSH_KEY'
+  | 'DROPLET_USES_RESERVED_IP',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -125,5 +128,11 @@ export const Relationships: Record<
     targetType: Entities.SSH_KEY._type,
     _type: 'digitalocean_account_has_ssh_key',
     _class: RelationshipClass.HAS,
+  },
+  DROPLET_USES_RESERVED_IP: {
+    sourceType: Entities.DROPLET._type,
+    targetType: Entities.RESERVED_IP._type,
+    _type: 'digitalocean_droplet_uses_reserved_ip',
+    _class: RelationshipClass.USES,
   },
 };
