@@ -72,29 +72,26 @@ export async function fetchProjectResources({
         projectEntity.id as string,
         async (resource) => {
           const [resourceType, key] = getResourceType(resource.urn);
-          switch (resourceType) {
-            case 'droplet':
-              const dropletEntity = await jobState.findEntity(
-                createDropletKey(key),
+          if (resourceType === 'droplet') {
+            const dropletEntity = await jobState.findEntity(
+              createDropletKey(key),
+            );
+
+            if (!dropletEntity) {
+              throw new IntegrationMissingKeyError(
+                `Droplet entity not found: ${key}`,
               );
+            }
 
-              if (!dropletEntity) {
-                throw new IntegrationMissingKeyError(
-                  `Droplet entity not found: ${key}`,
-                );
-              }
-
-              await jobState.addRelationship(
-                createDirectRelationship({
-                  from: projectEntity,
-                  to: dropletEntity,
-                  _class: Relationships.PROJECT_HAS_DROPLET._class,
-                }),
-              );
-              break;
-
-            default:
-              console.log('Skipping resource:', resourceType);
+            await jobState.addRelationship(
+              createDirectRelationship({
+                from: projectEntity,
+                to: dropletEntity,
+                _class: Relationships.PROJECT_HAS_DROPLET._class,
+              }),
+            );
+          } else {
+            console.log(`Unhandled resource type: ${resourceType}`);
           }
         },
       );
