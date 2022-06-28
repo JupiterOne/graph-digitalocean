@@ -11,7 +11,10 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { DataKey, PaginatedResponse } from './types/paginatedResponse';
 import { DigitalOceanDroplet } from './types/dropletType';
-import { DigitalOceanProject } from './types/projectType';
+import {
+  DigitalOceanProject,
+  DigitalOceanProjectResources,
+} from './types/projectType';
 import { DigitalOceanVolume } from './types/volumeType';
 import {
   DigitalOceanDomain,
@@ -77,6 +80,18 @@ export class APIClient {
     } while (next);
   }
 
+  async iterateProjectResources(
+    projectId: string,
+    iteratee: ResourceIteratee<DigitalOceanProjectResources>,
+  ): Promise<void> {
+    await this.iterateResources<DigitalOceanProjectResources>(
+      {
+        url: `/v2/projects/${projectId}/resources`,
+        dataKey: 'resources',
+      },
+      iteratee,
+    );
+  }
   async iterateSSHKeys(iteratee: ResourceIteratee<DigitalOceanSSHKey>) {
     await this.iterateResources<DigitalOceanSSHKey>(
       {

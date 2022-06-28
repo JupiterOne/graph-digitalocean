@@ -10,3 +10,12 @@ export interface DigitalOceanProject {
   created_at: string;
   updated_at: string;
 }
+
+export interface DigitalOceanProjectResources {
+  urn: string;
+  assigned_at: string;
+  links: {
+    self: string;
+  };
+  status: string;
+}

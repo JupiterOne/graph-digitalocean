@@ -117,6 +117,7 @@ The following relationships are created:
 | `digitalocean_account` | **HAS**               | `digitalocean_ssh_key`     |
 | `digitalocean_droplet` | **USES**              | `digitalocean_reserved_ip` |
 | `digitalocean_droplet` | **USES**              | `digitalocean_volume`      |
+| `digitalocean_project` | **HAS**               | `digitalocean_droplet`     |
 
 <!--
 ********************************************************************************

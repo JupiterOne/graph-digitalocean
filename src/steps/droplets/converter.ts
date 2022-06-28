@@ -2,8 +2,11 @@ import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanDroplet } from '../../types/dropletType';
 import { Entities } from '../constants';
 
-export function createDropletKey(dropletId: number) {
-  return 'digitalocean_droplet:' + dropletId.toString();
+export function createDropletKey(dropletId: number | string) {
+  if (typeof dropletId === 'number') {
+    return 'digitalocean_droplet:' + dropletId.toString();
+  }
+  return 'digitalocean_droplet:' + dropletId;
 }
 
 export function createDropletEntity(droplet: DigitalOceanDroplet) {

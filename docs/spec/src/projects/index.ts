@@ -23,4 +23,19 @@ export const projectSpec: StepSpec<IntegrationConfig>[] = [
     dependsOn: ['fetch-account'],
     implemented: true,
   },
+  {
+    id: 'fetch-project-resources',
+    name: 'Fetch Project Resources',
+    entities: [],
+    relationships: [
+      {
+        _class: RelationshipClass.HAS,
+        _type: 'digitalocean_project_has_droplet',
+        sourceType: 'digitalocean_project',
+        targetType: 'digitalocean_droplet',
+      },
+    ],
+    dependsOn: ['fetch-projects', 'fetch-droplets'],
+    implemented: true,
+  },
 ];

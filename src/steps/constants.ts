@@ -8,6 +8,7 @@ export const Steps = {
   ACCOUNT: 'fetch-account',
   DROPLETS: 'fetch-droplets',
   PROJECTS: 'fetch-projects',
+  PROJECT_RESOURCES: 'fetch-project-resources',
   VOLUMES: 'fetch-volumes',
   DOMAINS: 'fetch-domains',
   DOMAIN_RECORDS: 'fetch-domain-records',
@@ -105,7 +106,8 @@ export const Relationships: Record<
   | 'DROPLET_USES_VOLUME'
   | 'ACCOUNT_HAS_PROJECT'
   | 'ACCOUNT_HAS_SSH_KEY'
-  | 'DROPLET_USES_RESERVED_IP',
+  | 'DROPLET_USES_RESERVED_IP'
+  | 'PROJECT_HAS_DROPLET',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -134,5 +136,11 @@ export const Relationships: Record<
     targetType: Entities.RESERVED_IP._type,
     _type: 'digitalocean_droplet_uses_reserved_ip',
     _class: RelationshipClass.USES,
+  },
+  PROJECT_HAS_DROPLET: {
+    sourceType: Entities.PROJECT._type,
+    targetType: Entities.DROPLET._type,
+    _type: 'digitalocean_project_has_droplet',
+    _class: RelationshipClass.HAS,
   },
 };

@@ -10,6 +10,7 @@ import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { ACCOUNT_ENTITY_KEY } from '../account';
 import { Entities, Relationships, Steps } from '../constants';
+import { createDropletKey } from '../droplets/converter';
 import { createProjectEntity } from './converter';
 
 export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -20,6 +21,14 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [Relationships.ACCOUNT_HAS_PROJECT],
     dependsOn: [Steps.ACCOUNT],
     executionHandler: fetchProjects,
+  },
+  {
+    id: Steps.PROJECT_RESOURCES,
+    name: 'Fetch Project Resources',
+    entities: [],
+    relationships: [Relationships.PROJECT_HAS_DROPLET],
+    dependsOn: [Steps.PROJECTS, Steps.DROPLETS],
+    executionHandler: fetchProjectResources,
   },
 ];
 
@@ -48,4 +57,64 @@ export async function fetchProjects({
       }),
     );
   });
+}
+
+// TODO: not using properties from response
+export async function fetchProjectResources({
+  instance,
+  jobState,
+}: IntegrationStepExecutionContext<IntegrationConfig>) {
+  const client = createAPIClient(instance.config);
+  await jobState.iterateEntities(
+    { _type: Entities.PROJECT._type },
+    async (projectEntity) => {
+      await client.iterateProjectResources(
+        projectEntity.id as string,
+        async (resource) => {
+          const [resourceType, key] = getResourceType(resource.urn);
+          switch (resourceType) {
+            case 'droplet':
+              const dropletEntity = await jobState.findEntity(
+                createDropletKey(key),
+              );
+
+              if (!dropletEntity) {
+                throw new IntegrationMissingKeyError(
+                  `Droplet entity not found: ${key}`,
+                );
+              }
+
+              await jobState.addRelationship(
+                createDirectRelationship({
+                  from: projectEntity,
+                  to: dropletEntity,
+                  _class: Relationships.PROJECT_HAS_DROPLET._class,
+                }),
+              );
+              break;
+
+            default:
+              console.log('Skipping resource:', resourceType);
+          }
+        },
+      );
+    },
+  );
+}
+
+// There may be other resource types
+type ResourceType =
+  | 'app'
+  | 'dbaas'
+  | 'domain'
+  | 'droplet'
+  | 'floating_ip'
+  | 'kubernetes'
+  | 'load_balancer'
+  | 'space'
+  | 'volume';
+
+function getResourceType(urn: string): [ResourceType, string] {
+  const parts = urn.split(':');
+  return [parts[1] as ResourceType, parts[2]];
 }
