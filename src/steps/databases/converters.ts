@@ -5,6 +5,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import {
   DigitalOceanDatabase,
+  DigitalOceanDatabaseBackup,
   DigitalOceanDatabaseCertificate,
 } from '../../types/databaseType';
 import { Entities } from '../constants';
@@ -43,6 +44,33 @@ export function createDatabaseCertificateEntity(
         name: database.name + ' Certificate',
         displayName: database.name + ' Certificate',
         certificate: databaseCert.certificate,
+      },
+    },
+  });
+}
+
+export function createDatabaseBackupEntity(
+  database: Entity,
+  databaseBackup: DigitalOceanDatabaseBackup,
+) {
+  const createdOn = parseTimePropertyValue(databaseBackup.created_at);
+
+  return createIntegrationEntity({
+    entityData: {
+      source: databaseBackup,
+      assign: {
+        _key:
+          'digitalocean_database_backup' +
+          database._key +
+          '_' +
+          databaseBackup.created_at,
+        _class: Entities.DATABASE_BACKUP._class,
+        _type: Entities.DATABASE_BACKUP._type,
+        createdOn,
+        name: database.name + ' Backup',
+        displayName: database.name + ' Backup',
+        // TODO: normalize size?
+        sizeGigabytes: databaseBackup.size_gigabytes,
       },
     },
   });

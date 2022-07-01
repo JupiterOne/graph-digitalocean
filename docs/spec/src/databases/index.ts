@@ -1,4 +1,4 @@
-import { StepSpec } from '@jupiterone/integration-sdk-core';
+import { RelationshipClass, StepSpec } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../../../src/config';
 
 export const databaseSpec: StepSpec<IntegrationConfig>[] = [
@@ -28,6 +28,27 @@ export const databaseSpec: StepSpec<IntegrationConfig>[] = [
       },
     ],
     relationships: [],
+    dependsOn: ['fetch-databases'],
+    implemented: true,
+  },
+  {
+    id: 'fetch-database-backups',
+    name: 'Fetch Database Backups',
+    entities: [
+      {
+        resourceName: 'Database Backup',
+        _type: 'digitalocean_database_backup',
+        _class: ['Backup'],
+      },
+    ],
+    relationships: [
+      {
+        sourceType: 'digitalocean_database',
+        targetType: 'digitalocean_database_backup',
+        _type: 'digitalocean_database_has_backup',
+        _class: RelationshipClass.HAS,
+      },
+    ],
     dependsOn: ['fetch-databases'],
     implemented: true,
   },

@@ -14,6 +14,7 @@ export const Steps = {
   DOMAIN_RECORDS: 'fetch-domain-records',
   DATABASES: 'fetch-databases',
   DATABASE_CERTIFICATES: 'fetch-database-certificates',
+  DATABASE_BACKUPS: 'fetch-database-backups',
   RESERVED_IPS: 'fetch-reserved-ips',
   SSH_KEYS: 'fetch-keys',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
@@ -29,6 +30,7 @@ export const Entities: Record<
   | 'RESERVED_IP'
   | 'DATABASE'
   | 'DATABASE_CERTIFICATE'
+  | 'DATABASE_BACKUP'
   | 'SSH_KEY',
   StepEntityMetadata
 > = {
@@ -114,6 +116,11 @@ export const Entities: Record<
     _type: 'digitalocean_database_certificate',
     _class: ['Certificate'],
   },
+  DATABASE_BACKUP: {
+    resourceName: 'Database Backup',
+    _type: 'digitalocean_database_backup',
+    _class: ['Backup'],
+  },
 };
 
 export const Relationships: Record<
@@ -122,7 +129,8 @@ export const Relationships: Record<
   | 'ACCOUNT_HAS_SSH_KEY'
   | 'DROPLET_USES_RESERVED_IP'
   | 'PROJECT_HAS_DROPLET'
-  | 'DOMAIN_HAS_DOMAIN_RECORD',
+  | 'DOMAIN_HAS_DOMAIN_RECORD'
+  | 'DATABASE_HAS_BACKUP',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -162,6 +170,13 @@ export const Relationships: Record<
     sourceType: Entities.DOMAIN._type,
     targetType: Entities.DOMAIN_RECORD._type,
     _type: 'digitalocean_domain_has_domain_record',
+    _class: RelationshipClass.HAS,
+  },
+
+  DATABASE_HAS_BACKUP: {
+    sourceType: Entities.DATABASE._type,
+    targetType: Entities.DATABASE_BACKUP._type,
+    _type: 'digitalocean_database_has_backup',
     _class: RelationshipClass.HAS,
   },
 };

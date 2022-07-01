@@ -1,12 +1,15 @@
 import {
+  createDirectRelationship,
   IntegrationStep,
   IntegrationStepExecutionContext,
+  RelationshipClass,
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { DigitalOceanDatabase } from '../../types/databaseType';
-import { Entities, Steps } from '../constants';
+import { Entities, Relationships, Steps } from '../constants';
 import {
+  createDatabaseBackupEntity,
   createDatabaseCertificateEntity,
   createDatabaseEntity,
 } from './converters';
@@ -28,6 +31,14 @@ export const databaseSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [],
     dependsOn: [Steps.DATABASES],
     executionHandler: fetchDatabaseCertificates,
+  },
+  {
+    id: Steps.DATABASE_BACKUPS,
+    name: 'Fetch Database Backups',
+    entities: [Entities.DATABASE_BACKUP],
+    relationships: [Relationships.DATABASE_HAS_BACKUP],
+    dependsOn: [Steps.DATABASES],
+    executionHandler: fetchDatabaseBackups,
   },
 ];
 
@@ -53,6 +64,34 @@ export async function fetchDatabaseCertificates({
       const databaseCert = await client.getDatabaseCA(databaseEntity._key);
       await jobState.addEntity(
         createDatabaseCertificateEntity(databaseEntity, databaseCert),
+      );
+    },
+  );
+}
+
+export async function fetchDatabaseBackups({
+  instance,
+  jobState,
+}: IntegrationStepExecutionContext<IntegrationConfig>) {
+  const client = createAPIClient(instance.config);
+  await jobState.iterateEntities(
+    { _type: Entities.DATABASE._type },
+    async (databaseEntity) => {
+      await client.iterateDatabaseBackups(
+        databaseEntity._key,
+        async (backup) => {
+          const dbBackupEntity = await jobState.addEntity(
+            createDatabaseBackupEntity(databaseEntity, backup),
+          );
+
+          await jobState.addRelationship(
+            createDirectRelationship({
+              _class: RelationshipClass.HAS,
+              from: databaseEntity,
+              to: dbBackupEntity,
+            }),
+          );
+        },
       );
     },
   );

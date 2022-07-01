@@ -24,6 +24,7 @@ import { DigitalOceanReservedIP } from './types/ipType';
 import { DigitalOceanSSHKey } from './types/sshKeyType';
 import {
   DigitalOceanDatabase,
+  DigitalOceanDatabaseBackup,
   DigitalOceanDatabaseCertificate,
   DigitalOceanDatabaseCertificateResponse,
 } from './types/databaseType';
@@ -83,6 +84,19 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateDatabaseBackups(
+    uuid: string,
+    iteratee: ResourceIteratee<DigitalOceanDatabaseBackup>,
+  ) {
+    await this.iterateResources<DigitalOceanDatabaseBackup>(
+      {
+        url: `/v2/databases/${uuid}/backups`,
+        dataKey: 'backups',
+      },
+      iteratee,
+    );
   }
 
   async iterateDatabases(iteratee: ResourceIteratee<DigitalOceanDatabase>) {

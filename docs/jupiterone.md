@@ -100,6 +100,7 @@ The following entities are created:
 | -------------------- | ----------------------------------- | ------------------- |
 | Account              | `digitalocean_account`              | `Account`           |
 | Database             | `digitalocean_database`             | `Database`          |
+| Database Backup      | `digitalocean_database_backup`      | `Backup`            |
 | Database Certificate | `digitalocean_database_certificate` | `Certificate`       |
 | Domain               | `digitalocean_domain`               | `Domain`            |
 | Domain Record        | `digitalocean_domain_record`        | `DomainRecord`      |
@@ -113,14 +114,15 @@ The following entities are created:
 
 The following relationships are created:
 
-| Source Entity `_type`  | Relationship `_class` | Target Entity `_type`        |
-| ---------------------- | --------------------- | ---------------------------- |
-| `digitalocean_account` | **HAS**               | `digitalocean_project`       |
-| `digitalocean_account` | **HAS**               | `digitalocean_ssh_key`       |
-| `digitalocean_domain`  | **HAS**               | `digitalocean_domain_record` |
-| `digitalocean_droplet` | **USES**              | `digitalocean_reserved_ip`   |
-| `digitalocean_droplet` | **USES**              | `digitalocean_volume`        |
-| `digitalocean_project` | **HAS**               | `digitalocean_droplet`       |
+| Source Entity `_type`   | Relationship `_class` | Target Entity `_type`          |
+| ----------------------- | --------------------- | ------------------------------ |
+| `digitalocean_account`  | **HAS**               | `digitalocean_project`         |
+| `digitalocean_account`  | **HAS**               | `digitalocean_ssh_key`         |
+| `digitalocean_database` | **HAS**               | `digitalocean_database_backup` |
+| `digitalocean_domain`   | **HAS**               | `digitalocean_domain_record`   |
+| `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`     |
+| `digitalocean_droplet`  | **USES**              | `digitalocean_volume`          |
+| `digitalocean_project`  | **HAS**               | `digitalocean_droplet`         |
 
 <!--
 ********************************************************************************

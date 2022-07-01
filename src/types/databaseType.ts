@@ -47,3 +47,8 @@ export interface DigitalOceanDatabaseCertificateResponse {
 export interface DigitalOceanDatabaseCertificate {
   certificate: string;
 }
+
+export interface DigitalOceanDatabaseBackup {
+  created_at: Date;
+  size_gigabytes: number;
+}
