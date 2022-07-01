@@ -1,11 +1,5 @@
-import {
-  createIntegrationEntity,
-  parseTimePropertyValue,
-} from '@jupiterone/integration-sdk-core';
-import {
-  DigitalOceanDroplet,
-  DigitalOceanDropletSnapshot,
-} from '../../types/dropletType';
+import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
+import { DigitalOceanDroplet } from '../../types/dropletType';
 import { Entities } from '../constants';
 
 export function createDropletKey(dropletId: number | string) {

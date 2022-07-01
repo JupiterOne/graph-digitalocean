@@ -4,7 +4,6 @@ import {
   IntegrationStep,
   IntegrationStepExecutionContext,
 } from '@jupiterone/integration-sdk-core';
-import { domainSpec } from '../../../docs/spec/src/domains';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { Entities, Relationships, Steps } from '../constants';
