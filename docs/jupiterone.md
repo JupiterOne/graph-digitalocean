@@ -105,6 +105,7 @@ The following entities are created:
 | Domain               | `digitalocean_domain`               | `Domain`            |
 | Domain Record        | `digitalocean_domain_record`        | `DomainRecord`      |
 | Droplet              | `digitalocean_droplet`              | `Host`              |
+| Droplet Snapshot     | `digitalocean_droplet_snapshot`     | `Image`             |
 | Image                | `digitalocean_image`                | `Image`             |
 | Project              | `digitalocean_project`              | `Project`           |
 | Reserved IP          | `digitalocean_reserved_ip`          | `IpAddress`         |

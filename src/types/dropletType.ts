@@ -83,3 +83,13 @@ export interface Size {
   available: boolean;
   description: string;
 }
+
+export interface DigitalOceanDropletSnapshot {
+  id: number;
+  name: string;
+  created_at: Date;
+  regions: string[];
+  min_disk_size: number;
+  size_gigabytes: number;
+  type: string;
+}

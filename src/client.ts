@@ -10,7 +10,10 @@ import {
   IntegrationProviderAuthorizationError,
 } from '@jupiterone/integration-sdk-core';
 import { DataKey, PaginatedResponse } from './types/paginatedResponse';
-import { DigitalOceanDroplet } from './types/dropletType';
+import {
+  DigitalOceanDroplet,
+  DigitalOceanDropletSnapshot,
+} from './types/dropletType';
 import {
   DigitalOceanProject,
   DigitalOceanProjectResources,
@@ -213,6 +216,20 @@ export class APIClient {
     );
   }
 
+  async iterateDropletSnapshots(
+    dropletId: string | number,
+    iteratee: ResourceIteratee<DigitalOceanDropletSnapshot>,
+  ) {
+    const url = `/v2/droplets/${dropletId}/snapshots`;
+    await this.iterateResources<DigitalOceanDropletSnapshot>(
+      {
+        url,
+        dataKey: 'snapshots',
+      },
+      iteratee,
+    );
+  }
+
   async getDatabaseCA(uuid: string): Promise<DigitalOceanDatabaseCertificate> {
     const url = `/v2/databases/${uuid}/certificates`;
     try {
@@ -247,6 +264,7 @@ export class APIClient {
           Authorization: `Bearer ${this.accessToken}`,
         },
       });
+      console.log(response.headers);
       return response.data.account;
     } catch (err) {
       if (err instanceof GaxiosError) {

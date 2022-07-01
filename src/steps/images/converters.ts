@@ -26,7 +26,7 @@ export function createImageEntity(image: DigitalOceanImage): Entity {
         id: image.id.toString(),
         distribution: image.distribution,
         public: image.public,
-        type: image.type ?? undefined,
+        type: image.type,
         description: image.description,
         status: image.status,
         createdOn: parseTimePropertyValue(image.created_at),

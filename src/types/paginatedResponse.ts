@@ -1,5 +1,6 @@
 export type DataKey =
   | 'droplets'
+  | 'snapshots'
   | 'projects'
   | 'resources'
   | 'volumes'
