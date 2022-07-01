@@ -64,6 +64,7 @@ describe('#validateInvocation', () => {
             const executionContext = createMockExecutionContext({
               instanceConfig: {
                 accessToken: 'invalid-access-token',
+                ingestPublicImages: false,
               },
             });
 
