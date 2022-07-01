@@ -106,26 +106,28 @@ The following entities are created:
 | Domain Record        | `digitalocean_domain_record`        | `DomainRecord`      |
 | Droplet              | `digitalocean_droplet`              | `Host`              |
 | Droplet Snapshot     | `digitalocean_droplet_snapshot`     | `Image`             |
-| Image                | `digitalocean_image`                | `Image`             |
 | Project              | `digitalocean_project`              | `Project`           |
 | Reserved IP          | `digitalocean_reserved_ip`          | `IpAddress`         |
 | SSH Key              | `digitalocean_ssh_key`              | `Key`, `AccessKey`  |
 | Volume               | `digitalocean_volume`               | `DataStore`, `Disk` |
+| Volume Snapshot      | `digitalocean_volume_snapshot`      | `Image`             |
 
 ### Relationships
 
 The following relationships are created:
 
-| Source Entity `_type`   | Relationship `_class` | Target Entity `_type`          |
-| ----------------------- | --------------------- | ------------------------------ |
-| `digitalocean_account`  | **HAS**               | `digitalocean_project`         |
-| `digitalocean_account`  | **HAS**               | `digitalocean_ssh_key`         |
-| `digitalocean_database` | **HAS**               | `digitalocean_database_backup` |
-| `digitalocean_domain`   | **HAS**               | `digitalocean_domain_record`   |
-| `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`     |
-| `digitalocean_droplet`  | **USES**              | `digitalocean_volume`          |
-| `digitalocean_project`  | **HAS**               | `digitalocean_database`        |
-| `digitalocean_project`  | **HAS**               | `digitalocean_droplet`         |
+| Source Entity `_type`   | Relationship `_class` | Target Entity `_type`           |
+| ----------------------- | --------------------- | ------------------------------- |
+| `digitalocean_account`  | **HAS**               | `digitalocean_project`          |
+| `digitalocean_account`  | **HAS**               | `digitalocean_ssh_key`          |
+| `digitalocean_database` | **HAS**               | `digitalocean_database_backup`  |
+| `digitalocean_domain`   | **HAS**               | `digitalocean_domain_record`    |
+| `digitalocean_droplet`  | **HAS**               | `digitalocean_droplet_snapshot` |
+| `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`      |
+| `digitalocean_droplet`  | **USES**              | `digitalocean_volume`           |
+| `digitalocean_project`  | **HAS**               | `digitalocean_database`         |
+| `digitalocean_project`  | **HAS**               | `digitalocean_droplet`          |
+| `digitalocean_volume`   | **HAS**               | `digitalocean_volume_snapshot`  |
 
 <!--
 ********************************************************************************

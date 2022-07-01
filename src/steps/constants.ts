@@ -7,18 +7,17 @@ import {
 export const Steps = {
   ACCOUNT: 'fetch-account',
   DROPLETS: 'fetch-droplets',
-  DROPLET_SNAPSHOTS: 'fetch-droplet-snapshots',
   PROJECTS: 'fetch-projects',
   PROJECT_RESOURCES: 'fetch-project-resources',
   VOLUMES: 'fetch-volumes',
   DOMAINS: 'fetch-domains',
   DOMAIN_RECORDS: 'fetch-domain-records',
   DATABASES: 'fetch-databases',
+  SNAPSHOTS: 'fetch-snapshots',
   DATABASE_CERTIFICATES: 'fetch-database-certificates',
   DATABASE_BACKUPS: 'fetch-database-backups',
   RESERVED_IPS: 'fetch-reserved-ips',
   SSH_KEYS: 'fetch-keys',
-  IMAGE: 'fetch-images',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
@@ -35,7 +34,8 @@ export const Entities: Record<
   | 'DATABASE_BACKUP'
   | 'SSH_KEY'
   | 'IMAGE'
-  | 'DROPLET_SNAPSHOT',
+  | 'DROPLET_SNAPSHOT'
+  | 'VOLUME_SNAPSHOT',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -135,6 +135,11 @@ export const Entities: Record<
     _type: 'digitalocean_droplet_snapshot',
     _class: ['Image'],
   },
+  VOLUME_SNAPSHOT: {
+    resourceName: 'Volume Snapshot',
+    _type: 'digitalocean_volume_snapshot',
+    _class: ['Image'],
+  },
 };
 
 export const Relationships: Record<
@@ -143,6 +148,7 @@ export const Relationships: Record<
   | 'ACCOUNT_HAS_SSH_KEY'
   | 'DROPLET_USES_RESERVED_IP'
   | 'DROPLET_HAS_SNAPSHOT'
+  | 'VOLUME_HAS_SNAPSHOT'
   | 'PROJECT_HAS_DROPLET'
   | 'PROJECT_HAS_DATABASE'
   | 'DOMAIN_HAS_DOMAIN_RECORD'
@@ -180,6 +186,12 @@ export const Relationships: Record<
     sourceType: Entities.DROPLET._type,
     targetType: Entities.DROPLET_SNAPSHOT._type,
     _type: 'digitalocean_droplet_has_snapshot',
+    _class: RelationshipClass.HAS,
+  },
+  VOLUME_HAS_SNAPSHOT: {
+    sourceType: Entities.VOLUME._type,
+    targetType: Entities.VOLUME_SNAPSHOT._type,
+    _type: 'digitalocean_volume_has_snapshot',
     _class: RelationshipClass.HAS,
   },
   PROJECT_HAS_DROPLET: {

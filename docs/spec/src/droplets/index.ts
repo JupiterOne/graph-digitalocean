@@ -16,18 +16,4 @@ export const dropletsSpec: StepSpec<IntegrationConfig>[] = [
     dependsOn: [],
     implemented: true,
   },
-  {
-    id: 'fetch-droplet-snapshots',
-    name: 'Fetch Droplet Snapshots',
-    entities: [
-      {
-        resourceName: 'Droplet Snapshot',
-        _type: 'digitalocean_droplet_snapshot',
-        _class: ['Image'],
-      },
-    ],
-    relationships: [],
-    dependsOn: ['fetch-droplets'],
-    implemented: true,
-  },
 ];

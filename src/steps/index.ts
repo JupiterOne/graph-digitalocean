@@ -2,10 +2,10 @@ import { accountSteps } from './account';
 import { databaseSteps } from './databases';
 import { domainSteps } from './domains';
 import { dropletSteps } from './droplets';
-import { imagesSteps } from './images';
 import { ipSteps } from './ips';
 import { sshKeySteps } from './keys';
 import { projectSteps } from './projects';
+import { snapshotsSteps } from './snapshots';
 import { volumeSteps } from './volumes';
 
 const integrationSteps = [
@@ -17,7 +17,7 @@ const integrationSteps = [
   ...ipSteps,
   ...sshKeySteps,
   ...databaseSteps,
-  ...imagesSteps,
+  ...snapshotsSteps,
 ];
 
 export { integrationSteps };

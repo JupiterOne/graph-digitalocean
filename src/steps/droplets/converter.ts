@@ -34,25 +34,3 @@ export function createDropletEntity(droplet: DigitalOceanDroplet) {
     },
   });
 }
-
-// TODO: could add in more fields by pulling from images step or droplet
-export function createDropletSnapshotEntity(
-  snapshot: DigitalOceanDropletSnapshot,
-) {
-  console.log(snapshot);
-  return createIntegrationEntity({
-    entityData: {
-      source: snapshot,
-      assign: {
-        _key: 'digitalocean_droplet_snapshot:' + snapshot.id.toString(),
-        _class: Entities.DROPLET_SNAPSHOT._class,
-        _type: Entities.DROPLET_SNAPSHOT._type,
-        createdOn: parseTimePropertyValue(snapshot.created_at),
-        id: snapshot.id.toString(),
-        name: snapshot.name,
-        displayName: snapshot.name,
-        type: snapshot.type,
-      },
-    },
-  });
-}
