@@ -25,6 +25,9 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
     type: 'string',
     mask: true,
   },
+  ingestPublicImages: {
+    type: 'boolean',
+  },
 };
 
 /**
@@ -33,6 +36,7 @@ export const instanceConfigFields: IntegrationInstanceConfigFieldMap = {
  */
 export interface IntegrationConfig extends IntegrationInstanceConfig {
   accessToken: string;
+  ingestPublicImages: boolean;
 }
 
 export async function validateInvocation(

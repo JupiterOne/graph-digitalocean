@@ -8,6 +8,7 @@ export type DataKey =
   | 'reserved_ips'
   | 'ssh_keys'
   | 'databases'
+  | 'images'
   | 'backups';
 
 export type PaginatedResponse<K extends DataKey, T> = {

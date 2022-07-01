@@ -14,6 +14,8 @@ const DEFAULT_ACCESS_TOKEN = 'dummy-access-token';
 
 export const integrationConfig: IntegrationConfig = {
   accessToken: process.env.ACCESS_TOKEN || DEFAULT_ACCESS_TOKEN,
+  // TODO: make dynamic?
+  ingestPublicImages: false,
 };
 
 export function buildStepTestConfigForStep(stepId: string): StepTestConfig {

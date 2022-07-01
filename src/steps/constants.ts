@@ -17,6 +17,7 @@ export const Steps = {
   DATABASE_BACKUPS: 'fetch-database-backups',
   RESERVED_IPS: 'fetch-reserved-ips',
   SSH_KEYS: 'fetch-keys',
+  IMAGE: 'fetch-images',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
@@ -31,7 +32,8 @@ export const Entities: Record<
   | 'DATABASE'
   | 'DATABASE_CERTIFICATE'
   | 'DATABASE_BACKUP'
-  | 'SSH_KEY',
+  | 'SSH_KEY'
+  | 'IMAGE',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -120,6 +122,11 @@ export const Entities: Record<
     resourceName: 'Database Backup',
     _type: 'digitalocean_database_backup',
     _class: ['Backup'],
+  },
+  IMAGE: {
+    resourceName: 'Image',
+    _type: 'digitalocean_image',
+    _class: ['Image'],
   },
 };
 

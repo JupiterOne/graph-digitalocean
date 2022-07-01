@@ -32,7 +32,6 @@ function redact(entry) {
   // const DEFAULT_REDACT = '[REDACTED]';
   // const keysToRedactMap = new Map();
   const response = JSON.parse(entry.response.content.text);
-  console.log(response);
   if (response.account) {
     response.account = redactAccount(response.account);
   }

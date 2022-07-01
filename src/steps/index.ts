@@ -2,6 +2,7 @@ import { accountSteps } from './account';
 import { databaseSteps } from './databases';
 import { domainSteps } from './domains';
 import { dropletSteps } from './droplets';
+import { imagesSteps } from './images';
 import { ipSteps } from './ips';
 import { sshKeySteps } from './keys';
 import { projectSteps } from './projects';
@@ -16,6 +17,7 @@ const integrationSteps = [
   ...ipSteps,
   ...sshKeySteps,
   ...databaseSteps,
+  ...imagesSteps,
 ];
 
 export { integrationSteps };

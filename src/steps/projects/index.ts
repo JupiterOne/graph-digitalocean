@@ -66,6 +66,7 @@ export async function fetchProjects({
 export async function fetchProjectResources({
   instance,
   jobState,
+  logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const client = createAPIClient(instance.config);
   await jobState.iterateEntities(
@@ -110,7 +111,7 @@ export async function fetchProjectResources({
               }),
             );
           } else {
-            console.log(`Unhandled resource type: ${resourceType}`);
+            logger.info(`Unhandled resource type: ${resourceType}`);
           }
         },
       );

@@ -28,6 +28,7 @@ import {
   DigitalOceanDatabaseCertificate,
   DigitalOceanDatabaseCertificateResponse,
 } from './types/databaseType';
+import { DigitalOceanImage } from './types/imageType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -84,6 +85,22 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  // TODO - does pagination keep params
+  async iterateImages(iteratee: ResourceIteratee<DigitalOceanImage>) {
+    let url = '/v2/images';
+    if (!this.config.ingestPublicImages) {
+      url += '?private=true';
+    }
+
+    await this.iterateResources<DigitalOceanImage>(
+      {
+        url,
+        dataKey: 'images',
+      },
+      iteratee,
+    );
   }
 
   async iterateDatabaseBackups(
