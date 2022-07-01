@@ -122,6 +122,7 @@ The following relationships are created:
 | `digitalocean_domain`   | **HAS**               | `digitalocean_domain_record`   |
 | `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`     |
 | `digitalocean_droplet`  | **USES**              | `digitalocean_volume`          |
+| `digitalocean_project`  | **HAS**               | `digitalocean_database`        |
 | `digitalocean_project`  | **HAS**               | `digitalocean_droplet`         |
 
 <!--

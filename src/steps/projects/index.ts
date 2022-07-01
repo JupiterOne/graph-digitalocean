@@ -26,8 +26,11 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
     id: Steps.PROJECT_RESOURCES,
     name: 'Fetch Project Resources',
     entities: [],
-    relationships: [Relationships.PROJECT_HAS_DROPLET],
-    dependsOn: [Steps.PROJECTS, Steps.DROPLETS],
+    relationships: [
+      Relationships.PROJECT_HAS_DROPLET,
+      Relationships.PROJECT_HAS_DATABASE,
+    ],
+    dependsOn: [Steps.PROJECTS, Steps.DROPLETS, Steps.DATABASES],
     executionHandler: fetchProjectResources,
   },
 ];
@@ -88,6 +91,22 @@ export async function fetchProjectResources({
                 from: projectEntity,
                 to: dropletEntity,
                 _class: Relationships.PROJECT_HAS_DROPLET._class,
+              }),
+            );
+          } else if (resourceType === 'dbaas') {
+            const databaseEntity = await jobState.findEntity(key);
+
+            if (!databaseEntity) {
+              throw new IntegrationMissingKeyError(
+                `Database entity not found: ${key}`,
+              );
+            }
+
+            await jobState.addRelationship(
+              createDirectRelationship({
+                from: projectEntity,
+                to: databaseEntity,
+                _class: Relationships.PROJECT_HAS_DATABASE._class,
               }),
             );
           } else {
