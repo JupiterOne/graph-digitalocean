@@ -1,4 +1,5 @@
 import { accountSteps } from './account';
+import { databaseSteps } from './databases';
 import { domainSteps } from './domains';
 import { dropletSteps } from './droplets';
 import { ipSteps } from './ips';
@@ -14,6 +15,7 @@ const integrationSteps = [
   ...domainSteps,
   ...ipSteps,
   ...sshKeySteps,
+  ...databaseSteps,
 ];
 
 export { integrationSteps };

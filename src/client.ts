@@ -22,6 +22,7 @@ import {
 } from './types/domainType';
 import { DigitalOceanReservedIP } from './types/ipType';
 import { DigitalOceanSSHKey } from './types/sshKeyType';
+import { DigitalOceanDatabase } from './types/databaseType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -78,6 +79,16 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateDatabases(iteratee: ResourceIteratee<DigitalOceanDatabase>) {
+    await this.iterateResources<DigitalOceanDatabase>(
+      {
+        url: '/v2/databases',
+        dataKey: 'databases',
+      },
+      iteratee,
+    );
   }
 
   async iterateProjectResources(

@@ -6,7 +6,8 @@ export type DataKey =
   | 'domains'
   | 'domain_records'
   | 'reserved_ips'
-  | 'ssh_keys';
+  | 'ssh_keys'
+  | 'databases';
 
 export type PaginatedResponse<K extends DataKey, T> = {
   [key in K]: T[];

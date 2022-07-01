@@ -99,6 +99,7 @@ The following entities are created:
 | Resources     | Entity `_type`               | Entity `_class`     |
 | ------------- | ---------------------------- | ------------------- |
 | Account       | `digitalocean_account`       | `Account`           |
+| Database      | `digitalocean_database`      | `Database`          |
 | Domain        | `digitalocean_domain`        | `Domain`            |
 | Domain Record | `digitalocean_domain_record` | `DomainRecord`      |
 | Droplet       | `digitalocean_droplet`       | `Host`              |

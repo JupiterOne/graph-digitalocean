@@ -2,6 +2,7 @@ import { IntegrationSpecConfig } from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from '../../../src/config';
 import { accountSpec } from './account';
+import { databaseSpec } from './databases';
 import { domainSpec } from './domains';
 import { dropletsSpec } from './droplets';
 import { ipSpec } from './ip';
@@ -16,5 +17,6 @@ export const invocationConfig: IntegrationSpecConfig<IntegrationConfig> = {
     ...volumeSpec,
     ...domainSpec,
     ...ipSpec,
+    ...databaseSpec,
   ],
 };

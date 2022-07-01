@@ -12,6 +12,7 @@ export const Steps = {
   VOLUMES: 'fetch-volumes',
   DOMAINS: 'fetch-domains',
   DOMAIN_RECORDS: 'fetch-domain-records',
+  DATABASES: 'fetch-databases',
   RESERVED_IPS: 'fetch-reserved-ips',
   SSH_KEYS: 'fetch-keys',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
@@ -25,6 +26,7 @@ export const Entities: Record<
   | 'DOMAIN'
   | 'DOMAIN_RECORD'
   | 'RESERVED_IP'
+  | 'DATABASE'
   | 'SSH_KEY',
   StepEntityMetadata
 > = {
@@ -99,6 +101,11 @@ export const Entities: Record<
     resourceName: 'SSH Key',
     _type: 'digitalocean_ssh_key',
     _class: ['Key', 'AccessKey'],
+  },
+  DATABASE: {
+    resourceName: 'Database',
+    _type: 'digitalocean_database',
+    _class: ['Database'],
   },
 };
 
