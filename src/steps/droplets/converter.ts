@@ -9,6 +9,7 @@ export function createDropletKey(dropletId: number | string) {
   return 'digitalocean_droplet:' + dropletId;
 }
 
+// TODO: add more fields
 export function createDropletEntity(droplet: DigitalOceanDroplet) {
   return createIntegrationEntity({
     entityData: {
@@ -22,6 +23,7 @@ export function createDropletEntity(droplet: DigitalOceanDroplet) {
         _type: Entities.DROPLET._type,
         name: droplet.name,
         id: droplet.id.toString(),
+        hostname: droplet.name,
       },
     },
   });

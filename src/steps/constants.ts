@@ -107,7 +107,8 @@ export const Relationships: Record<
   | 'ACCOUNT_HAS_PROJECT'
   | 'ACCOUNT_HAS_SSH_KEY'
   | 'DROPLET_USES_RESERVED_IP'
-  | 'PROJECT_HAS_DROPLET',
+  | 'PROJECT_HAS_DROPLET'
+  | 'DOMAIN_HAS_DOMAIN_RECORD',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -141,6 +142,12 @@ export const Relationships: Record<
     sourceType: Entities.PROJECT._type,
     targetType: Entities.DROPLET._type,
     _type: 'digitalocean_project_has_droplet',
+    _class: RelationshipClass.HAS,
+  },
+  DOMAIN_HAS_DOMAIN_RECORD: {
+    sourceType: Entities.DOMAIN._type,
+    targetType: Entities.DOMAIN_RECORD._type,
+    _type: 'digitalocean_domain_has_domain_record',
     _class: RelationshipClass.HAS,
   },
 };

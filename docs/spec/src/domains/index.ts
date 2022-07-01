@@ -1,4 +1,4 @@
-import { StepSpec } from '@jupiterone/integration-sdk-core';
+import { RelationshipClass, StepSpec } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../../../src/config';
 
 export const domainSpec: StepSpec<IntegrationConfig>[] = [
@@ -30,7 +30,14 @@ export const domainSpec: StepSpec<IntegrationConfig>[] = [
         _class: ['DomainRecord'],
       },
     ],
-    relationships: [],
+    relationships: [
+      {
+        sourceType: 'digitalocean_domain',
+        targetType: 'digitalocean_domain_record',
+        _class: RelationshipClass.HAS,
+        _type: 'digitalocean_domain_has_domain_record',
+      },
+    ],
     dependsOn: ['fetch-domains'],
     implemented: true,
   },
