@@ -17,4 +17,18 @@ export const databaseSpec: StepSpec<IntegrationConfig>[] = [
     dependsOn: [],
     implemented: true,
   },
+  {
+    id: 'fetch-database-certificates',
+    name: 'Fetch Database Certificates',
+    entities: [
+      {
+        resourceName: 'Database Certificate',
+        _type: 'digitalocean_database_certificate',
+        _class: ['Certificate'],
+      },
+    ],
+    relationships: [],
+    dependsOn: ['fetch-databases'],
+    implemented: true,
+  },
 ];

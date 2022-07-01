@@ -22,7 +22,11 @@ import {
 } from './types/domainType';
 import { DigitalOceanReservedIP } from './types/ipType';
 import { DigitalOceanSSHKey } from './types/sshKeyType';
-import { DigitalOceanDatabase } from './types/databaseType';
+import {
+  DigitalOceanDatabase,
+  DigitalOceanDatabaseCertificate,
+  DigitalOceanDatabaseCertificateResponse,
+} from './types/databaseType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -178,6 +182,30 @@ export class APIClient {
     );
   }
 
+  async getDatabaseCA(uuid: string): Promise<DigitalOceanDatabaseCertificate> {
+    const url = `/v2/databases/${uuid}/certificates`;
+    try {
+      const response = await request<DigitalOceanDatabaseCertificateResponse>({
+        baseURL: this.BASE_URL,
+        url,
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+        },
+      });
+      return response.data.ca;
+    } catch (err) {
+      if (err instanceof GaxiosError) {
+        throw this.createIntegrationError(
+          err.response?.status as number,
+          err.response?.statusText as string,
+          this.BASE_URL + url,
+        );
+      } else {
+        throw err;
+      }
+    }
+  }
+
   async getAccount(): Promise<DigitalOceanAccount> {
     const url = '/v2/account';
     try {
@@ -190,11 +218,15 @@ export class APIClient {
       });
       return response.data.account;
     } catch (err) {
-      throw this.createIntegrationError(
-        err.response.status,
-        err.response.statusText,
-        this.BASE_URL + url,
-      );
+      if (err instanceof GaxiosError) {
+        throw this.createIntegrationError(
+          err.response?.status as number,
+          err.response?.statusText as string,
+          this.BASE_URL + url,
+        );
+      } else {
+        throw err;
+      }
     }
   }
 

@@ -39,3 +39,11 @@ export interface User {
   role: string;
   password: string;
 }
+
+export interface DigitalOceanDatabaseCertificateResponse {
+  ca: DigitalOceanDatabaseCertificate;
+}
+
+export interface DigitalOceanDatabaseCertificate {
+  certificate: string;
+}

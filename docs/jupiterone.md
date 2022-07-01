@@ -96,17 +96,18 @@ https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources     | Entity `_type`               | Entity `_class`     |
-| ------------- | ---------------------------- | ------------------- |
-| Account       | `digitalocean_account`       | `Account`           |
-| Database      | `digitalocean_database`      | `Database`          |
-| Domain        | `digitalocean_domain`        | `Domain`            |
-| Domain Record | `digitalocean_domain_record` | `DomainRecord`      |
-| Droplet       | `digitalocean_droplet`       | `Host`              |
-| Project       | `digitalocean_project`       | `Project`           |
-| Reserved IP   | `digitalocean_reserved_ip`   | `IpAddress`         |
-| SSH Key       | `digitalocean_ssh_key`       | `Key`, `AccessKey`  |
-| Volume        | `digitalocean_volume`        | `DataStore`, `Disk` |
+| Resources            | Entity `_type`                      | Entity `_class`     |
+| -------------------- | ----------------------------------- | ------------------- |
+| Account              | `digitalocean_account`              | `Account`           |
+| Database             | `digitalocean_database`             | `Database`          |
+| Database Certificate | `digitalocean_database_certificate` | `Certificate`       |
+| Domain               | `digitalocean_domain`               | `Domain`            |
+| Domain Record        | `digitalocean_domain_record`        | `DomainRecord`      |
+| Droplet              | `digitalocean_droplet`              | `Host`              |
+| Project              | `digitalocean_project`              | `Project`           |
+| Reserved IP          | `digitalocean_reserved_ip`          | `IpAddress`         |
+| SSH Key              | `digitalocean_ssh_key`              | `Key`, `AccessKey`  |
+| Volume               | `digitalocean_volume`               | `DataStore`, `Disk` |
 
 ### Relationships
 
