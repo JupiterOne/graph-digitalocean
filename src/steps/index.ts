@@ -1,4 +1,5 @@
 import { accountSteps } from './account';
+import { alertPolicySteps } from './alerts';
 import { databaseSteps } from './databases';
 import { domainSteps } from './domains';
 import { dropletSteps } from './droplets';
@@ -20,6 +21,7 @@ const integrationSteps = [
   ...databaseSteps,
   ...snapshotsSteps,
   ...firewallSteps,
+  ...alertPolicySteps,
 ];
 
 export { integrationSteps };

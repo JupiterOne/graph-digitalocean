@@ -8,6 +8,7 @@ export type DataKey =
   | 'domain_records'
   | 'reserved_ips'
   | 'ssh_keys'
+  | 'policies'
   | 'databases'
   | 'images'
   | 'firewalls'

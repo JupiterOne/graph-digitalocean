@@ -111,7 +111,7 @@ export async function fetchProjectResources({
               }),
             );
           } else {
-            logger.info(`Unhandled resource type: ${resourceType}`);
+            logger.warn(`Unhandled resource type: ${resourceType}`);
           }
         },
       );

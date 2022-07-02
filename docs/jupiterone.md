@@ -99,6 +99,7 @@ The following entities are created:
 | Resources            | Entity `_type`                      | Entity `_class`     |
 | -------------------- | ----------------------------------- | ------------------- |
 | Account              | `digitalocean_account`              | `Account`           |
+| Alert Policy         | `digitalocean_alert_policy`         | `Rule`              |
 | Database             | `digitalocean_database`             | `Database`          |
 | Database Backup      | `digitalocean_database_backup`      | `Backup`            |
 | Database Certificate | `digitalocean_database_certificate` | `Certificate`       |
@@ -123,6 +124,7 @@ The following relationships are created:
 | `digitalocean_account`  | **HAS**               | `digitalocean_ssh_key`          |
 | `digitalocean_database` | **HAS**               | `digitalocean_database_backup`  |
 | `digitalocean_domain`   | **HAS**               | `digitalocean_domain_record`    |
+| `digitalocean_droplet`  | **HAS**               | `digitalocean_alert_policy`     |
 | `digitalocean_droplet`  | **HAS**               | `digitalocean_droplet_snapshot` |
 | `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`      |
 | `digitalocean_droplet`  | **USES**              | `digitalocean_volume`           |

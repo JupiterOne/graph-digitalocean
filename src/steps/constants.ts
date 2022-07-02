@@ -19,6 +19,7 @@ export const Steps = {
   RESERVED_IPS: 'fetch-reserved-ips',
   SSH_KEYS: 'fetch-keys',
   FIREWALLS: 'fetch-firewalls',
+  ALERT_POLICIES: 'fetch-alert-policies',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
@@ -37,6 +38,7 @@ export const Entities: Record<
   | 'IMAGE'
   | 'DROPLET_SNAPSHOT'
   | 'VOLUME_SNAPSHOT'
+  | 'ALERT_POLICY'
   | 'FIREWALL',
   StepEntityMetadata
 > = {
@@ -147,6 +149,11 @@ export const Entities: Record<
     _type: 'digitalocean_firewall',
     _class: ['Firewall'],
   },
+  ALERT_POLICY: {
+    resourceName: 'Alert Policy',
+    _type: 'digitalocean_alert_policy',
+    _class: ['Rule'],
+  },
 };
 
 export const Relationships: Record<
@@ -159,7 +166,8 @@ export const Relationships: Record<
   | 'PROJECT_HAS_DROPLET'
   | 'PROJECT_HAS_DATABASE'
   | 'DOMAIN_HAS_DOMAIN_RECORD'
-  | 'DATABASE_HAS_BACKUP',
+  | 'DATABASE_HAS_BACKUP'
+  | 'DROPLET_HAS_ALERT_POLICY',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -193,6 +201,12 @@ export const Relationships: Record<
     sourceType: Entities.DROPLET._type,
     targetType: Entities.DROPLET_SNAPSHOT._type,
     _type: 'digitalocean_droplet_has_snapshot',
+    _class: RelationshipClass.HAS,
+  },
+  DROPLET_HAS_ALERT_POLICY: {
+    sourceType: Entities.DROPLET._type,
+    targetType: Entities.ALERT_POLICY._type,
+    _type: 'digitalocean_droplet_has_alert_policy',
     _class: RelationshipClass.HAS,
   },
   VOLUME_HAS_SNAPSHOT: {

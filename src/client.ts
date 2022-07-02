@@ -33,6 +33,7 @@ import {
 } from './types/databaseType';
 import { DigitalOceanSnapshot } from './types/snapshotType';
 import { DigitalOceanFirewall } from './types/firewallType';
+import { DigitalOceanAlertPolciy } from './types/alertPolicy';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -89,6 +90,18 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateAlertPolicies(
+    iteratee: ResourceIteratee<DigitalOceanAlertPolciy>,
+  ) {
+    await this.iterateResources<DigitalOceanAlertPolciy>(
+      {
+        url: '/v2/monitoring/alerts',
+        dataKey: 'policies',
+      },
+      iteratee,
+    );
   }
 
   async iterateFirewalls(iteratee: ResourceIteratee<DigitalOceanFirewall>) {
