@@ -22,6 +22,7 @@ export const Steps = {
   SSH_KEYS: 'fetch-keys',
   FIREWALLS: 'fetch-firewalls',
   ALERT_POLICIES: 'fetch-alert-policies',
+  REGIONS: 'fetch-regions',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
@@ -40,6 +41,7 @@ export const Entities: Record<
   | 'IMAGE'
   | 'DROPLET_SNAPSHOT'
   | 'VOLUME_SNAPSHOT'
+  | 'REGION'
   | 'ALERT_POLICY'
   | 'FIREWALL',
   StepEntityMetadata
@@ -156,6 +158,11 @@ export const Entities: Record<
     _type: 'digitalocean_alert_policy',
     _class: ['Rule'],
   },
+  REGION: {
+    resourceName: 'Region',
+    _type: 'digitalocean_region',
+    _class: ['Site'],
+  },
 };
 
 export const Relationships: Record<
@@ -169,7 +176,9 @@ export const Relationships: Record<
   | 'PROJECT_HAS_DATABASE'
   | 'DOMAIN_HAS_DOMAIN_RECORD'
   | 'DATABASE_HAS_BACKUP'
-  | 'DROPLET_HAS_ALERT_POLICY',
+  | 'DROPLET_HAS_ALERT_POLICY'
+  | 'REGION_HOSTS_DROPLET'
+  | 'REGION_HOSTS_RESERVED_IP',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -240,6 +249,18 @@ export const Relationships: Record<
     targetType: Entities.DATABASE_BACKUP._type,
     _type: 'digitalocean_database_has_backup',
     _class: RelationshipClass.HAS,
+  },
+  REGION_HOSTS_DROPLET: {
+    sourceType: Entities.REGION._type,
+    targetType: Entities.DROPLET._type,
+    _type: 'digitalocean_region_hosts_droplet',
+    _class: RelationshipClass.HOSTS,
+  },
+  REGION_HOSTS_RESERVED_IP: {
+    sourceType: Entities.REGION._type,
+    targetType: Entities.RESERVED_IP._type,
+    _type: 'digitalocean_region_hosts_reserved_ip',
+    _class: RelationshipClass.HOSTS,
   },
 };
 

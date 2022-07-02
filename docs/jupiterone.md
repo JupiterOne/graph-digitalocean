@@ -109,6 +109,7 @@ The following entities are created:
 | Droplet Snapshot     | `digitalocean_droplet_snapshot`     | `Image`             |
 | Firewall             | `digitalocean_firewall`             | `Firewall`          |
 | Project              | `digitalocean_project`              | `Project`           |
+| Region               | `digitalocean_region`               | `Site`              |
 | Reserved IP          | `digitalocean_reserved_ip`          | `IpAddress`         |
 | SSH Key              | `digitalocean_ssh_key`              | `Key`, `AccessKey`  |
 | Volume               | `digitalocean_volume`               | `DataStore`, `Disk` |
@@ -130,6 +131,8 @@ The following relationships are created:
 | `digitalocean_droplet`  | **USES**              | `digitalocean_volume`           |
 | `digitalocean_project`  | **HAS**               | `digitalocean_database`         |
 | `digitalocean_project`  | **HAS**               | `digitalocean_droplet`          |
+| `digitalocean_region`   | **HOSTS**             | `digitalocean_droplet`          |
+| `digitalocean_region`   | **HOSTS**             | `digitalocean_reserved_ip`      |
 | `digitalocean_volume`   | **HAS**               | `digitalocean_volume_snapshot`  |
 
 <!--

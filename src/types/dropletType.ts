@@ -1,3 +1,5 @@
+import { DigitalOceanRegion } from './regionType';
+
 export interface DigitalOceanDroplet {
   id: number;
   name: string;
@@ -17,7 +19,7 @@ export interface DigitalOceanDroplet {
   size: Size;
   size_slug: string;
   networks: Networks;
-  region: Region;
+  region: DigitalOceanRegion;
   tags: string[];
   vpc_uuid: string;
 }
@@ -61,14 +63,6 @@ export interface V6 {
 export interface NextBackupWindow {
   start: Date;
   end: Date;
-}
-
-export interface Region {
-  name: string;
-  slug: string;
-  features: string[];
-  available: boolean;
-  sizes: string[];
 }
 
 export interface Size {

@@ -9,6 +9,7 @@ import { dropletsSpec } from './droplets';
 import { firewallSpec } from './firewall';
 import { ipSpec } from './ip';
 import { projectSpec } from './projects';
+import { regionSpec } from './region';
 import { snapshotSpec } from './snapshots';
 import { volumeSpec } from './volumes';
 
@@ -24,5 +25,6 @@ export const invocationConfig: IntegrationSpecConfig<IntegrationConfig> = {
     ...snapshotSpec,
     ...firewallSpec,
     ...alertPolicySpec,
+    ...regionSpec,
   ],
 };

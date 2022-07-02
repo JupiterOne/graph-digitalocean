@@ -1,16 +1,9 @@
+import { DigitalOceanRegion } from './regionType';
 import { DigitalOceanDroplet } from './dropletType';
 
 export interface DigitalOceanReservedIP {
   ip: string;
   droplet: null | DigitalOceanDroplet;
-  region: Region;
+  region: DigitalOceanRegion;
   locked: boolean;
-}
-
-export interface Region {
-  name: string;
-  slug: string;
-  features: string[];
-  available: boolean;
-  sizes: string[];
 }
