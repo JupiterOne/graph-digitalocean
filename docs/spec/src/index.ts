@@ -2,6 +2,7 @@ import { IntegrationSpecConfig } from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from '../../../src/config';
 import { accountSpec } from './account';
+import { alertPolicySpec } from './alertPolciy';
 import { databaseSpec } from './databases';
 import { domainSpec } from './domains';
 import { dropletsSpec } from './droplets';
@@ -22,5 +23,6 @@ export const invocationConfig: IntegrationSpecConfig<IntegrationConfig> = {
     ...databaseSpec,
     ...snapshotSpec,
     ...firewallSpec,
+    ...alertPolicySpec,
   ],
 };
