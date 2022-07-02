@@ -6,7 +6,7 @@ import {
 import { DigitalOceanSnapshot } from '../../types/snapshotType';
 import { Entities } from '../constants';
 
-// TODO: add other properties such as region or make relatoinship to region?
+// TODO: add other properties such as region or make relationship to region?
 export function createSnapshotEntity(snapshot: DigitalOceanSnapshot): Entity {
   const _type =
     snapshot.resource_type === 'droplet'

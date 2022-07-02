@@ -1,4 +1,4 @@
-export interface DigitalOceanAlertPolciy {
+export interface DigitalOceanAlertPolicy {
   alerts: Alerts;
   compare: string;
   description: string;

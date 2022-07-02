@@ -33,7 +33,7 @@ import {
 } from './types/databaseType';
 import { DigitalOceanSnapshot } from './types/snapshotType';
 import { DigitalOceanFirewall } from './types/firewallType';
-import { DigitalOceanAlertPolciy } from './types/alertPolicy';
+import { DigitalOceanAlertPolicy } from './types/alertPolicy';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -93,9 +93,9 @@ export class APIClient {
   }
 
   async iterateAlertPolicies(
-    iteratee: ResourceIteratee<DigitalOceanAlertPolciy>,
+    iteratee: ResourceIteratee<DigitalOceanAlertPolicy>,
   ) {
-    await this.iterateResources<DigitalOceanAlertPolciy>(
+    await this.iterateResources<DigitalOceanAlertPolicy>(
       {
         url: '/v2/monitoring/alerts',
         dataKey: 'policies',

@@ -1,9 +1,9 @@
 import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
-import { DigitalOceanAlertPolciy } from '../../types/alertPolicy';
+import { DigitalOceanAlertPolicy } from '../../types/alertPolicy';
 import { Entities } from '../constants';
 
 // TODO: add alerts to users and slack?
-export function createAlertPolicyEntity(alertPolicy: DigitalOceanAlertPolciy) {
+export function createAlertPolicyEntity(alertPolicy: DigitalOceanAlertPolicy) {
   return createIntegrationEntity({
     entityData: {
       source: {
