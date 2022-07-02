@@ -17,7 +17,7 @@ export const dropletSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchDroplets({
+async function fetchDroplets({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

@@ -34,6 +34,7 @@ import {
 import { DigitalOceanSnapshot } from './types/snapshotType';
 import { DigitalOceanFirewall } from './types/firewallType';
 import { DigitalOceanAlertPolicy } from './types/alertPolicy';
+import { DigitalOceanCertificate } from './types/certificateType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -90,6 +91,18 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateCertificates(
+    iteratee: ResourceIteratee<DigitalOceanCertificate>,
+  ) {
+    await this.iterateResources<DigitalOceanCertificate>(
+      {
+        url: '/v2/certificates',
+        dataKey: 'certificates',
+      },
+      iteratee,
+    );
   }
 
   async iterateAlertPolicies(

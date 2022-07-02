@@ -10,7 +10,7 @@ import { createAccountEntity } from './converter';
 
 export const ACCOUNT_ENTITY_KEY = 'entity:account';
 
-export async function fetchAccountDetails({
+async function fetchAccountDetails({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

@@ -34,7 +34,7 @@ export const domainSteps: IntegrationStep<IntegrationConfig>[] = [
 
 // TODO: Would it be better to have domain as the target of an mapped
 // relationship since the domain itself might exist elsewhere in the graph
-export async function fetchDroplets({
+async function fetchDroplets({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
@@ -45,7 +45,7 @@ export async function fetchDroplets({
 }
 
 // TODO create relationship between domainrecord and ip/host?
-export async function fetchDomainsRecords({
+async function fetchDomainsRecords({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

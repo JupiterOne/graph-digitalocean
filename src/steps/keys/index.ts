@@ -22,7 +22,7 @@ export const sshKeySteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchSSHKeys({
+async function fetchSSHKeys({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

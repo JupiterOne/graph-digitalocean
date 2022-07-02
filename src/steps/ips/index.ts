@@ -21,7 +21,7 @@ export const ipSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchReservedIps({
+async function fetchReservedIps({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

@@ -25,7 +25,7 @@ export const snapshotsSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchSnapshots({
+async function fetchSnapshots({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

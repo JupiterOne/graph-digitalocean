@@ -1,5 +1,6 @@
 import { accountSteps } from './account';
 import { alertPolicySteps } from './alerts';
+import { certificateSteps } from './certificates';
 import { databaseSteps } from './databases';
 import { domainSteps } from './domains';
 import { dropletSteps } from './droplets';
@@ -24,6 +25,7 @@ const integrationSteps = [
   ...firewallSteps,
   ...alertPolicySteps,
   ...regionsSteps,
+  ...certificateSteps,
 ];
 
 export { integrationSteps };

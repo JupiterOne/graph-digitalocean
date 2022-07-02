@@ -1,6 +1,6 @@
-# {{provider}} Integration with JupiterOne
+# DigitalOcean Integration with JupiterOne
 
-## {{provider}} + JupiterOne Integration Benefits
+## DigitalOcean + JupiterOne Integration Benefits
 
 TODO: Iterate the benefits of ingesting data from the provider into JupiterOne.
 Consider the following examples:
@@ -100,6 +100,7 @@ The following entities are created:
 | -------------------- | ----------------------------------- | ------------------- |
 | Account              | `digitalocean_account`              | `Account`           |
 | Alert Policy         | `digitalocean_alert_policy`         | `Rule`              |
+| Certificate          | `digitalocean_certificate`          | `Certificate`       |
 | Database             | `digitalocean_database`             | `Database`          |
 | Database Backup      | `digitalocean_database_backup`      | `Backup`            |
 | Database Certificate | `digitalocean_database_certificate` | `Certificate`       |

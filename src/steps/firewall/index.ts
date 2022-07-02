@@ -19,7 +19,7 @@ export const firewallSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchFirewalls({
+async function fetchFirewalls({
   instance,
   jobState,
   logger,

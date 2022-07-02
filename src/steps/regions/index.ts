@@ -25,7 +25,7 @@ export const regionsSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchRegions({
+async function fetchRegions({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   await jobState.iterateEntities(

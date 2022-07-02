@@ -35,7 +35,7 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchProjects({
+async function fetchProjects({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
@@ -63,7 +63,7 @@ export async function fetchProjects({
 }
 
 // TODO: not using properties from response
-export async function fetchProjectResources({
+async function fetchProjectResources({
   instance,
   jobState,
   logger,

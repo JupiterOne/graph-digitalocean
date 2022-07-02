@@ -23,6 +23,7 @@ export const Steps = {
   FIREWALLS: 'fetch-firewalls',
   ALERT_POLICIES: 'fetch-alert-policies',
   REGIONS: 'fetch-regions',
+  CERTIFICATES: 'fetch-certificates',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
@@ -43,6 +44,7 @@ export const Entities: Record<
   | 'VOLUME_SNAPSHOT'
   | 'REGION'
   | 'ALERT_POLICY'
+  | 'CERTIFICATE'
   | 'FIREWALL',
   StepEntityMetadata
 > = {
@@ -162,6 +164,11 @@ export const Entities: Record<
     resourceName: 'Region',
     _type: 'digitalocean_region',
     _class: ['Site'],
+  },
+  CERTIFICATE: {
+    resourceName: 'Certificate',
+    _type: 'digitalocean_certificate',
+    _class: ['Certificate'],
   },
 };
 

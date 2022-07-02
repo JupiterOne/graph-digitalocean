@@ -23,7 +23,7 @@ export const alertPolicySteps: IntegrationStep<IntegrationConfig>[] = [
 ];
 
 // TODO: not creating relationships from tags yet
-export async function fetchAlertPolicies({
+async function fetchAlertPolicies({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {

@@ -42,7 +42,7 @@ export const databaseSteps: IntegrationStep<IntegrationConfig>[] = [
   },
 ];
 
-export async function fetchDatabases({
+async function fetchDatabases({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
@@ -53,7 +53,7 @@ export async function fetchDatabases({
 }
 
 // TODO: this data may not be worth ingesting
-export async function fetchDatabaseCertificates({
+async function fetchDatabaseCertificates({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
@@ -69,7 +69,7 @@ export async function fetchDatabaseCertificates({
   );
 }
 
-export async function fetchDatabaseBackups({
+async function fetchDatabaseBackups({
   instance,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
