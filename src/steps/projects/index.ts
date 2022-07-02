@@ -29,6 +29,7 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       Relationships.PROJECT_HAS_DROPLET,
       Relationships.PROJECT_HAS_DATABASE,
+      Relationships.PROJECT_HAS_VOLUME,
     ],
     dependsOn: [Steps.PROJECTS, Steps.DROPLETS, Steps.DATABASES],
     executionHandler: fetchProjectResources,
@@ -108,6 +109,21 @@ async function fetchProjectResources({
                 from: projectEntity,
                 to: databaseEntity,
                 _class: Relationships.PROJECT_HAS_DATABASE._class,
+              }),
+            );
+          } else if (resourceType === 'volume') {
+            const volumeEntity = await jobState.findEntity(key);
+            if (!volumeEntity) {
+              throw new IntegrationMissingKeyError(
+                `Resource entity not found: ${key}`,
+              );
+            }
+
+            await jobState.addRelationship(
+              createDirectRelationship({
+                from: projectEntity,
+                to: volumeEntity,
+                _class: Relationships.PROJECT_HAS_VOLUME._class,
               }),
             );
           } else {

@@ -181,11 +181,13 @@ export const Relationships: Record<
   | 'VOLUME_HAS_SNAPSHOT'
   | 'PROJECT_HAS_DROPLET'
   | 'PROJECT_HAS_DATABASE'
+  | 'PROJECT_HAS_VOLUME'
   | 'DOMAIN_HAS_DOMAIN_RECORD'
   | 'DATABASE_HAS_BACKUP'
   | 'DROPLET_HAS_ALERT_POLICY'
   | 'REGION_HOSTS_DROPLET'
-  | 'REGION_HOSTS_RESERVED_IP',
+  | 'REGION_HOSTS_RESERVED_IP'
+  | 'REGION_HOSTS_VOLUME',
   StepRelationshipMetadata
 > = {
   DROPLET_USES_VOLUME: {
@@ -268,6 +270,18 @@ export const Relationships: Record<
     targetType: Entities.RESERVED_IP._type,
     _type: 'digitalocean_region_hosts_reserved_ip',
     _class: RelationshipClass.HOSTS,
+  },
+  REGION_HOSTS_VOLUME: {
+    sourceType: Entities.REGION._type,
+    targetType: Entities.VOLUME._type,
+    _type: 'digitalocean_region_hosts_volume',
+    _class: RelationshipClass.HOSTS,
+  },
+  PROJECT_HAS_VOLUME: {
+    sourceType: Entities.PROJECT._type,
+    targetType: Entities.VOLUME._type,
+    _type: 'digitalocean_project_has_volume',
+    _class: RelationshipClass.HAS,
   },
 };
 

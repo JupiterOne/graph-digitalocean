@@ -132,8 +132,10 @@ The following relationships are created:
 | `digitalocean_droplet`  | **USES**              | `digitalocean_volume`           |
 | `digitalocean_project`  | **HAS**               | `digitalocean_database`         |
 | `digitalocean_project`  | **HAS**               | `digitalocean_droplet`          |
+| `digitalocean_project`  | **HAS**               | `digitalocean_volume`           |
 | `digitalocean_region`   | **HOSTS**             | `digitalocean_droplet`          |
 | `digitalocean_region`   | **HOSTS**             | `digitalocean_reserved_ip`      |
+| `digitalocean_region`   | **HOSTS**             | `digitalocean_volume`           |
 | `digitalocean_volume`   | **HAS**               | `digitalocean_volume_snapshot`  |
 
 <!--

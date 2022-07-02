@@ -25,6 +25,12 @@ export const regionSpec: StepSpec<IntegrationConfig>[] = [
         _type: 'digitalocean_region_hosts_reserved_ip',
         _class: RelationshipClass.HOSTS,
       },
+      {
+        sourceType: 'digitalocean_region',
+        targetType: 'digitalocean_volume',
+        _type: 'digitalocean_region_hosts_volume',
+        _class: RelationshipClass.HOSTS,
+      },
     ],
     mappedRelationships: [],
     dependsOn: ['fetch-droplets', 'fetch-reserved-ips'],

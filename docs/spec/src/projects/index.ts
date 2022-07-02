@@ -40,6 +40,12 @@ export const projectSpec: StepSpec<IntegrationConfig>[] = [
         sourceType: 'digitalocean_project',
         targetType: 'digitalocean_database',
       },
+      {
+        _class: RelationshipClass.HAS,
+        _type: 'digitalocean_project_has_volume',
+        sourceType: 'digitalocean_project',
+        targetType: 'digitalocean_volume',
+      },
     ],
     dependsOn: ['fetch-projects', 'fetch-droplets', 'fetch-databases'],
     implemented: true,

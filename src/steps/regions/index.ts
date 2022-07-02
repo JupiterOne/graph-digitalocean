@@ -17,6 +17,7 @@ export const regionsSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [
       Relationships.REGION_HOSTS_DROPLET,
       Relationships.REGION_HOSTS_RESERVED_IP,
+      Relationships.REGION_HOSTS_VOLUME,
     ],
     mappedRelationships: [],
     dependsOn: [Steps.DROPLETS, Steps.RESERVED_IPS],
@@ -39,6 +40,13 @@ async function fetchRegions({
     { _type: Entities.RESERVED_IP._type },
     async (reservedIpEntity) => {
       await createRegionEntityRelationship(jobState, reservedIpEntity);
+    },
+  );
+
+  await jobState.iterateEntities(
+    { _type: Entities.VOLUME._type },
+    async (volumeEntity) => {
+      await createRegionEntityRelationship(jobState, volumeEntity);
     },
   );
 }

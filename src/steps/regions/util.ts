@@ -11,6 +11,7 @@ import {
 import { DigitalOceanDroplet } from '../../types/dropletType';
 import { DigitalOceanReservedIP } from '../../types/ipType';
 import { DigitalOceanRegion } from '../../types/regionType';
+import { DigitalOceanVolume } from '../../types/volumeType';
 import { createRegionEntity, createRegionKey } from './converters';
 
 // region, so we should be careful about the type of Entity we pass manually.
@@ -20,7 +21,8 @@ export async function createRegionEntityRelationship(
 ): Promise<void> {
   const entityRawData = getRawData(targetEntity) as
     | DigitalOceanDroplet
-    | DigitalOceanReservedIP;
+    | DigitalOceanReservedIP
+    | DigitalOceanVolume;
 
   if (!entityRawData.region) {
     throw new IntegrationMissingKeyError(
