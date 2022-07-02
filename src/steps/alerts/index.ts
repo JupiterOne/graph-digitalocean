@@ -23,8 +23,6 @@ export const alertPolicySteps: IntegrationStep<IntegrationConfig>[] = [
 ];
 
 // TODO: not creating relationships from tags yet
-// TODO: make mapped relationships to slack channels
-// TODO: make mapped relationships to users
 export async function fetchAlertPolicies({
   instance,
   jobState,
@@ -51,6 +49,7 @@ export async function fetchAlertPolicies({
           _class: Relationships.DROPLET_HAS_ALERT_POLICY._class,
         }),
       );
+      // TODO: Add mapped relationships to users and slack channels
     }
   });
 }

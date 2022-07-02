@@ -1,6 +1,8 @@
 import {
   RelationshipClass,
+  RelationshipDirection,
   StepEntityMetadata,
+  StepMappedRelationshipMetadata,
   StepRelationshipMetadata,
 } from '@jupiterone/integration-sdk-core';
 
@@ -238,5 +240,26 @@ export const Relationships: Record<
     targetType: Entities.DATABASE_BACKUP._type,
     _type: 'digitalocean_database_has_backup',
     _class: RelationshipClass.HAS,
+  },
+};
+
+export const TargetEntities: Record<string, StepEntityMetadata> = {
+  SLACK_CHANNEL: {
+    resourceName: 'Slack Channel',
+    _type: 'slack_channel',
+    _class: ['Channel'],
+  },
+};
+
+export const MappedRelationships: Record<
+  'ALERT_POLICY_NOTIFIES_SLACK_CHANNEL',
+  StepMappedRelationshipMetadata
+> = {
+  ALERT_POLICY_NOTIFIES_SLACK_CHANNEL: {
+    sourceType: Entities.ALERT_POLICY._type,
+    targetType: TargetEntities.SLACK_CHANNEL._type,
+    _class: RelationshipClass.NOTIFIES,
+    _type: 'digitalocean_alert_policy_notifies_slack_team',
+    direction: RelationshipDirection.FORWARD,
   },
 };
