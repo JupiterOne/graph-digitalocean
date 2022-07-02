@@ -28,7 +28,6 @@ export const snapshotsSteps: IntegrationStep<IntegrationConfig>[] = [
 export async function fetchSnapshots({
   instance,
   jobState,
-  logger,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const client = createAPIClient(instance.config);
   await client.iterateSnapshots(async (snapshot) => {

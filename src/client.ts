@@ -32,6 +32,7 @@ import {
   DigitalOceanDatabaseCertificateResponse,
 } from './types/databaseType';
 import { DigitalOceanSnapshot } from './types/snapshotType';
+import { DigitalOceanFirewall } from './types/firewallType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -88,6 +89,16 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateFirewalls(iteratee: ResourceIteratee<DigitalOceanFirewall>) {
+    await this.iterateResources<DigitalOceanFirewall>(
+      {
+        url: '/v2/firewalls',
+        dataKey: 'firewalls',
+      },
+      iteratee,
+    );
   }
 
   async iterateSnapshots(iteratee: ResourceIteratee<DigitalOceanSnapshot>) {
@@ -255,7 +266,6 @@ export class APIClient {
           Authorization: `Bearer ${this.accessToken}`,
         },
       });
-      console.log(response.headers);
       return response.data.account;
     } catch (err) {
       if (err instanceof GaxiosError) {

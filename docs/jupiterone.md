@@ -106,6 +106,7 @@ The following entities are created:
 | Domain Record        | `digitalocean_domain_record`        | `DomainRecord`      |
 | Droplet              | `digitalocean_droplet`              | `Host`              |
 | Droplet Snapshot     | `digitalocean_droplet_snapshot`     | `Image`             |
+| Firewall             | `digitalocean_firewall`             | `Firewall`          |
 | Project              | `digitalocean_project`              | `Project`           |
 | Reserved IP          | `digitalocean_reserved_ip`          | `IpAddress`         |
 | SSH Key              | `digitalocean_ssh_key`              | `Key`, `AccessKey`  |

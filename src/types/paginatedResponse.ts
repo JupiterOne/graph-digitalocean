@@ -10,6 +10,7 @@ export type DataKey =
   | 'ssh_keys'
   | 'databases'
   | 'images'
+  | 'firewalls'
   | 'backups';
 
 export type PaginatedResponse<K extends DataKey, T> = {

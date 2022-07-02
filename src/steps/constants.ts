@@ -18,6 +18,7 @@ export const Steps = {
   DATABASE_BACKUPS: 'fetch-database-backups',
   RESERVED_IPS: 'fetch-reserved-ips',
   SSH_KEYS: 'fetch-keys',
+  FIREWALLS: 'fetch-firewalls',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
@@ -35,7 +36,8 @@ export const Entities: Record<
   | 'SSH_KEY'
   | 'IMAGE'
   | 'DROPLET_SNAPSHOT'
-  | 'VOLUME_SNAPSHOT',
+  | 'VOLUME_SNAPSHOT'
+  | 'FIREWALL',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -139,6 +141,11 @@ export const Entities: Record<
     resourceName: 'Volume Snapshot',
     _type: 'digitalocean_volume_snapshot',
     _class: ['Image'],
+  },
+  FIREWALL: {
+    resourceName: 'Firewall',
+    _type: 'digitalocean_firewall',
+    _class: ['Firewall'],
   },
 };
 
