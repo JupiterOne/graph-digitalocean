@@ -9,6 +9,7 @@ import { ipSteps } from './ips';
 import { sshKeySteps } from './keys';
 import { projectSteps } from './projects';
 import { regionsSteps } from './regions';
+import { registrySteps } from './registries';
 import { snapshotsSteps } from './snapshots';
 import { volumeSteps } from './volumes';
 
@@ -26,6 +27,7 @@ const integrationSteps = [
   ...alertPolicySteps,
   ...regionsSteps,
   ...certificateSteps,
+  ...registrySteps,
 ];
 
 export { integrationSteps };

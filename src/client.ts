@@ -35,6 +35,7 @@ import { DigitalOceanSnapshot } from './types/snapshotType';
 import { DigitalOceanFirewall } from './types/firewallType';
 import { DigitalOceanAlertPolicy } from './types/alertPolicy';
 import { DigitalOceanCertificate } from './types/certificateType';
+import { DigitalOceanContainerRegistry } from './types/registryType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -91,6 +92,18 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateContainerRegistries(
+    iteratee: ResourceIteratee<DigitalOceanContainerRegistry>,
+  ) {
+    await this.iterateResources(
+      {
+        url: '/v2/registry',
+        dataKey: 'registry',
+      },
+      iteratee,
+    );
   }
 
   async iterateCertificates(

@@ -59,11 +59,7 @@ export function createDatabaseBackupEntity(
     entityData: {
       source: databaseBackup,
       assign: {
-        _key:
-          'digitalocean_database_backup' +
-          database._key +
-          '_' +
-          databaseBackup.created_at,
+        _key: 'digitalocean_database_backup:' + database._key + ':' + createdOn,
         _class: Entities.DATABASE_BACKUP._class,
         _type: Entities.DATABASE_BACKUP._type,
         createdOn,

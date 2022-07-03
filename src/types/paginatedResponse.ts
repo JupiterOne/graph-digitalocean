@@ -12,6 +12,7 @@ export type DataKey =
   | 'policies'
   | 'databases'
   | 'images'
+  | 'registry'
   | 'firewalls'
   | 'backups';
 

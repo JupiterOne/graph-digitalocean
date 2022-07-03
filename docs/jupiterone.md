@@ -101,6 +101,7 @@ The following entities are created:
 | Account              | `digitalocean_account`              | `Account`           |
 | Alert Policy         | `digitalocean_alert_policy`         | `Rule`              |
 | Certificate          | `digitalocean_certificate`          | `Certificate`       |
+| Container Registry   | `digitalocean_container_registry`   | `Repository`        |
 | Database             | `digitalocean_database`             | `Database`          |
 | Database Backup      | `digitalocean_database_backup`      | `Backup`            |
 | Database Certificate | `digitalocean_database_certificate` | `Certificate`       |

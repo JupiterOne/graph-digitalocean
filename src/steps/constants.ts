@@ -24,10 +24,11 @@ export const Steps = {
   ALERT_POLICIES: 'fetch-alert-policies',
   REGIONS: 'fetch-regions',
   CERTIFICATES: 'fetch-certificates',
+  CONTAINER_REGISTRIES: 'fetch-container-registries',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
 };
 
-export const Entities: Record<
+type EntityIds =
   | 'ACCOUNT'
   | 'DROPLET'
   | 'PROJECT'
@@ -45,9 +46,10 @@ export const Entities: Record<
   | 'REGION'
   | 'ALERT_POLICY'
   | 'CERTIFICATE'
-  | 'FIREWALL',
-  StepEntityMetadata
-> = {
+  | 'CONTAINER_REGISTRY'
+  | 'FIREWALL';
+
+export const Entities: Record<EntityIds, StepEntityMetadata> = {
   ACCOUNT: {
     resourceName: 'Account',
     _type: 'digitalocean_account',
@@ -169,6 +171,11 @@ export const Entities: Record<
     resourceName: 'Certificate',
     _type: 'digitalocean_certificate',
     _class: ['Certificate'],
+  },
+  CONTAINER_REGISTRY: {
+    resourceName: 'Container Registry',
+    _type: 'digitalocean_container_registry',
+    _class: ['Repository'],
   },
 };
 
@@ -305,3 +312,9 @@ export const MappedRelationships: Record<
     direction: RelationshipDirection.FORWARD,
   },
 };
+
+/*
+TODO: Create function for generating types for each entity
+export function createEntityKey(entityType: string, keyValue: string): string {
+}
+*/
