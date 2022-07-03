@@ -3,7 +3,7 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanVolume } from '../../types/volumeType';
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 export function createVolumeEntity(volume: DigitalOceanVolume) {
   return createIntegrationEntity({
@@ -13,7 +13,7 @@ export function createVolumeEntity(volume: DigitalOceanVolume) {
         tags: [],
       },
       assign: {
-        _key: volume.id,
+        _key: createEntityKey(Entities.VOLUME, volume.id),
         _type: Entities.VOLUME._type,
         _class: Entities.VOLUME._class,
         name: volume.name,

@@ -12,7 +12,8 @@ import { DigitalOceanDroplet } from '../../types/dropletType';
 import { DigitalOceanReservedIP } from '../../types/ipType';
 import { DigitalOceanRegion } from '../../types/regionType';
 import { DigitalOceanVolume } from '../../types/volumeType';
-import { createRegionEntity, createRegionKey } from './converters';
+import { createEntityKey, Entities } from '../constants';
+import { createRegionEntity } from './converters';
 
 // region, so we should be careful about the type of Entity we pass manually.
 export async function createRegionEntityRelationship(
@@ -48,8 +49,10 @@ export async function findOrCreateRegionEntity(
   jobState: JobState,
   region: DigitalOceanRegion,
 ): Promise<Entity> {
-  if (jobState.hasKey(createRegionKey(region.slug))) {
-    return (await jobState.findEntity(createRegionKey(region.slug))) as Entity;
+  const key = createEntityKey(Entities.REGION, region.slug);
+
+  if (jobState.hasKey(key)) {
+    return (await jobState.findEntity(key)) as Entity;
   } else {
     return jobState.addEntity(createRegionEntity(region));
   }

@@ -3,18 +3,14 @@ import {
   DigitalOceanDomain,
   DigitalOceanDomainRecord,
 } from '../../types/domainType';
-import { Entities } from '../constants';
-
-function createDomainKey(domain: DigitalOceanDomain) {
-  return 'digitalocean_domain' + domain.name;
-}
+import { createEntityKey, Entities } from '../constants';
 
 export function createDomainEntity(domain: DigitalOceanDomain) {
   return createIntegrationEntity({
     entityData: {
       source: domain,
       assign: {
-        _key: createDomainKey(domain),
+        _key: createEntityKey(Entities.DOMAIN, domain.name),
         _class: Entities.DOMAIN._class,
         _type: Entities.DOMAIN._type,
         name: domain.name,
@@ -33,9 +29,10 @@ export function createDomainRecordEntity(
     entityData: {
       source: domainRecord,
       assign: {
-        _key: 'digitalocean_domain_record' + domainRecord.id.toString(),
+        _key: createEntityKey(Entities.DOMAIN_RECORD, domainRecord.id),
         _type: Entities.DOMAIN_RECORD._type,
         _class: Entities.DOMAIN_RECORD._class,
+        id: domainRecord.id.toString(),
         name: domainRecord.name,
         displayName: domainRecord.type + domainRecord.name + domainRecord.data,
         description: domainRecord.type,

@@ -4,7 +4,7 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanSnapshot } from '../../types/snapshotType';
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 // TODO: add other properties such as region or make relationship to region?
 export function createSnapshotEntity(snapshot: DigitalOceanSnapshot): Entity {
@@ -15,8 +15,8 @@ export function createSnapshotEntity(snapshot: DigitalOceanSnapshot): Entity {
 
   const _key =
     snapshot.resource_type === 'droplet'
-      ? 'digitalocean_droplet_snapshot_' + snapshot.id
-      : 'digitalocean_volume_snapshot_' + snapshot.id;
+      ? createEntityKey(Entities.DROPLET_SNAPSHOT, snapshot.id)
+      : createEntityKey(Entities.VOLUME_SNAPSHOT, snapshot.id);
 
   return createIntegrationEntity({
     entityData: {

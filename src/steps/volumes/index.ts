@@ -8,8 +8,7 @@ import {
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
 import { DigitalOceanVolume } from '../../types/volumeType';
-import { Entities, Relationships, Steps } from '../constants';
-import { createDropletKey } from '../droplets/converter';
+import { createEntityKey, Entities, Relationships, Steps } from '../constants';
 import { createVolumeEntity } from './converter';
 
 export const volumeSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -55,15 +54,11 @@ export async function buildVolumeDropletRelationships({
       const dropletIds: number[] = volume?.droplet_ids;
 
       for (const dropletId of dropletIds) {
-        const dropletEntity = await jobState.findEntity(
-          createDropletKey(dropletId),
-        );
+        const dropletKey = createEntityKey(Entities.DROPLET, dropletId);
+        const dropletEntity = await jobState.findEntity(dropletKey);
 
         if (dropletEntity === null) {
-          logger.warn(
-            { dropletKey: createDropletKey(dropletId) },
-            'Could not find droplet in jobState.',
-          );
+          logger.warn({ dropletKey }, 'Could not find droplet in jobState.');
           continue;
         }
 

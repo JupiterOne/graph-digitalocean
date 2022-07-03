@@ -1,6 +1,6 @@
 import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanKubernetesCluster } from '../../types/kubernetesType';
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 // TODO add more props
 export function createClusterEntity(cluster: DigitalOceanKubernetesCluster) {
@@ -11,7 +11,7 @@ export function createClusterEntity(cluster: DigitalOceanKubernetesCluster) {
         tags: undefined,
       },
       assign: {
-        _key: cluster.id,
+        _key: createEntityKey(Entities.KUBERNETES_CLUSTER, cluster.id),
         _class: Entities.KUBERNETES_CLUSTER._class,
         _type: Entities.KUBERNETES_CLUSTER._type,
         name: cluster.name,

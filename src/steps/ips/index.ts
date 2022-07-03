@@ -6,8 +6,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { Entities, Relationships, Steps } from '../constants';
-import { createDropletKey } from '../droplets/converter';
+import { createEntityKey, Entities, Relationships, Steps } from '../constants';
 import { createReservedIpEntity } from './converters';
 
 export const ipSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -33,7 +32,7 @@ async function fetchReservedIps({
 
     if (reservedIp.droplet) {
       const dropletEntity = await jobState.findEntity(
-        createDropletKey(reservedIp.droplet.id),
+        createEntityKey(Entities.DROPLET, reservedIp.droplet.id),
       );
 
       if (!dropletEntity) {

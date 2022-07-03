@@ -3,14 +3,14 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanProject } from '../../types/projectType';
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 export function createProjectEntity(project: DigitalOceanProject) {
   return createIntegrationEntity({
     entityData: {
       source: project,
       assign: {
-        _key: project.id,
+        _key: createEntityKey(Entities.PROJECT, project.id),
         _type: Entities.PROJECT._type,
         _class: Entities.PROJECT._class,
         name: project.name,

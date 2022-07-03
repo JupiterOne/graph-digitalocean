@@ -3,18 +3,14 @@ import {
   Entity,
 } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanRegion } from '../../types/regionType';
-import { Entities } from '../constants';
-
-export function createRegionKey(slug: string) {
-  return 'digitalocean_region_' + slug;
-}
+import { createEntityKey, Entities } from '../constants';
 
 export function createRegionEntity(region: DigitalOceanRegion): Entity {
   return createIntegrationEntity({
     entityData: {
       source: region,
       assign: {
-        _key: createRegionKey(region.slug),
+        _key: createEntityKey(Entities.REGION, region.slug),
         _class: Entities.REGION._class,
         _type: Entities.REGION._type,
         name: region.name,

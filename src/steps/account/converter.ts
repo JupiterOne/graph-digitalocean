@@ -4,14 +4,14 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanAccount } from '../../types/accountType';
 
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 export function createAccountEntity(account: DigitalOceanAccount): Entity {
   return createIntegrationEntity({
     entityData: {
       source: account,
       assign: {
-        _key: account.uuid,
+        _key: createEntityKey(Entities.ACCOUNT, account.uuid),
         _type: Entities.ACCOUNT._type,
         _class: Entities.ACCOUNT._class,
         // DigitalOcean Account?

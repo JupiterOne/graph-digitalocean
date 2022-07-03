@@ -1,17 +1,13 @@
 import { createIntegrationEntity } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanSSHKey } from '../../types/sshKeyType';
-import { Entities } from '../constants';
-
-export function createSSHKeyKey(sshKey: DigitalOceanSSHKey) {
-  return 'digitalocean_ssh_key' + sshKey.id.toString();
-}
+import { createEntityKey, Entities } from '../constants';
 
 export function createSSHKeyEntity(sshKey: DigitalOceanSSHKey) {
   return createIntegrationEntity({
     entityData: {
       source: sshKey,
       assign: {
-        _key: createSSHKeyKey(sshKey),
+        _key: createEntityKey(Entities.SSH_KEY, sshKey.id),
         _type: Entities.SSH_KEY._type,
         _class: Entities.SSH_KEY._class,
         id: sshKey.id.toString(),

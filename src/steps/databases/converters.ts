@@ -8,7 +8,7 @@ import {
   DigitalOceanDatabaseBackup,
   DigitalOceanDatabaseCertificate,
 } from '../../types/databaseType';
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 // TODO: Add other properties
 export function createDatabaseEntity(database: DigitalOceanDatabase) {
@@ -17,9 +17,10 @@ export function createDatabaseEntity(database: DigitalOceanDatabase) {
       // TODO: scrub raw data for sensitive data
       source: {},
       assign: {
-        _key: database.id,
+        _key: createEntityKey(Entities.DATABASE, database.id),
         _class: Entities.DATABASE._class,
         _type: Entities.DATABASE._type,
+        id: database.id,
         name: database.name,
         displayName: database.name,
         databaseEngine: database.engine,
@@ -38,7 +39,11 @@ export function createDatabaseCertificateEntity(
     entityData: {
       source: databaseCert,
       assign: {
-        _key: 'digitalocean_database_certificate:' + database._key,
+        // TODO enable raw data for db so this can be better
+        _key: createEntityKey(
+          Entities.DATABASE_CERTIFICATE,
+          database.id as string,
+        ),
         _class: Entities.DATABASE_CERTIFICATE._class,
         _type: Entities.DATABASE_CERTIFICATE._type,
         name: database.name + ' Certificate',
@@ -59,7 +64,10 @@ export function createDatabaseBackupEntity(
     entityData: {
       source: databaseBackup,
       assign: {
-        _key: 'digitalocean_database_backup:' + database._key + ':' + createdOn,
+        _key: createEntityKey(
+          Entities.DATABASE_BACKUP,
+          (database.id as string) + createdOn,
+        ),
         _class: Entities.DATABASE_BACKUP._class,
         _type: Entities.DATABASE_BACKUP._type,
         createdOn,

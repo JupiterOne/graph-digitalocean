@@ -3,7 +3,7 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanFirewall } from '../../types/firewallType';
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 // TODO: remove rules from rawdata
 export function createFirewallEntity(firewall: DigitalOceanFirewall) {
@@ -14,7 +14,7 @@ export function createFirewallEntity(firewall: DigitalOceanFirewall) {
         tags: [],
       },
       assign: {
-        _key: 'digitalocean_firewall' + firewall.id,
+        _key: createEntityKey(Entities.FIREWALL, firewall.id),
         _type: Entities.FIREWALL._type,
         _class: Entities.FIREWALL._class,
         name: firewall.name,

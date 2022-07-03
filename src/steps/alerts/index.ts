@@ -6,8 +6,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { Entities, Relationships, Steps } from '../constants';
-import { createDropletKey } from '../droplets/converter';
+import { createEntityKey, Entities, Relationships, Steps } from '../constants';
 import { createAlertPolicyEntity } from './converters';
 
 export const alertPolicySteps: IntegrationStep<IntegrationConfig>[] = [
@@ -33,8 +32,8 @@ async function fetchAlertPolicies({
       createAlertPolicyEntity(alertPolicy),
     );
 
-    for (const droplet of alertPolicy.entities) {
-      const dropletKey = createDropletKey(droplet);
+    for (const dropletId of alertPolicy.entities) {
+      const dropletKey = createEntityKey(Entities.DROPLET, dropletId);
       const dropletEntity = await jobState.findEntity(dropletKey);
       if (!dropletEntity) {
         throw new IntegrationMissingKeyError(

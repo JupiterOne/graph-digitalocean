@@ -335,8 +335,11 @@ export const MappedRelationships: Record<
   },
 };
 
-/*
-TODO: Create function for generating types for each entity
-export function createEntityKey(entityType: string, keyValue: string): string {
+export function createEntityKey(
+  entity: StepEntityMetadata,
+  keyValue: string | number,
+): string {
+  keyValue = keyValue.toString();
+
+  return entity._type + ':' + keyValue;
 }
-*/

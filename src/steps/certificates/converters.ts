@@ -4,14 +4,14 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { DigitalOceanCertificate } from '../../types/certificateType';
-import { Entities } from '../constants';
+import { createEntityKey, Entities } from '../constants';
 
 export function createCertificateEntity(cert: DigitalOceanCertificate): Entity {
   return createIntegrationEntity({
     entityData: {
       source: cert,
       assign: {
-        _key: cert.id,
+        _key: createEntityKey(Entities.CERTIFICATE, cert.id),
         _class: Entities.CERTIFICATE._class,
         _type: Entities.CERTIFICATE._type,
         name: cert.name,

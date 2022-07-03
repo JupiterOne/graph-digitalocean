@@ -61,7 +61,9 @@ async function fetchDatabaseCertificates({
   await jobState.iterateEntities(
     { _type: Entities.DATABASE._type },
     async (databaseEntity) => {
-      const databaseCert = await client.getDatabaseCA(databaseEntity._key);
+      const databaseCert = await client.getDatabaseCA(
+        databaseEntity.id as string,
+      );
       await jobState.addEntity(
         createDatabaseCertificateEntity(databaseEntity, databaseCert),
       );
@@ -78,7 +80,7 @@ async function fetchDatabaseBackups({
     { _type: Entities.DATABASE._type },
     async (databaseEntity) => {
       await client.iterateDatabaseBackups(
-        databaseEntity._key,
+        databaseEntity.id as string,
         async (backup) => {
           const dbBackupEntity = await jobState.addEntity(
             createDatabaseBackupEntity(databaseEntity, backup),

@@ -6,8 +6,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import { createAPIClient } from '../../client';
 import { IntegrationConfig } from '../../config';
-import { Entities, Relationships, Steps } from '../constants';
-import { createDropletKey } from '../droplets/converter';
+import { createEntityKey, Entities, Relationships, Steps } from '../constants';
 import { createSnapshotEntity } from './converters';
 
 export const snapshotsSteps: IntegrationStep<IntegrationConfig>[] = [
@@ -36,7 +35,10 @@ async function fetchSnapshots({
     );
 
     if (snapshot.resource_type === 'droplet') {
-      const dropletKey = createDropletKey(snapshot.resource_id);
+      const dropletKey = createEntityKey(
+        Entities.DROPLET,
+        snapshot.resource_id,
+      );
       const dropletEntity = await jobState.findEntity(dropletKey);
 
       if (!dropletEntity) {
@@ -53,7 +55,8 @@ async function fetchSnapshots({
         }),
       );
     } else {
-      const volumeEntity = await jobState.findEntity(snapshot.resource_id);
+      const volumeKey = createEntityKey(Entities.VOLUME, snapshot.resource_id);
+      const volumeEntity = await jobState.findEntity(volumeKey);
       if (!volumeEntity) {
         throw new IntegrationMissingKeyError(
           `Volume entity not found ${snapshot.resource_id}`,
