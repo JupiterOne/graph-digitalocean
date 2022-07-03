@@ -53,7 +53,12 @@ export const projectSpec: StepSpec<IntegrationConfig>[] = [
         _class: RelationshipClass.HAS,
       },
     ],
-    dependsOn: ['fetch-projects', 'fetch-droplets', 'fetch-databases'],
+    dependsOn: [
+      'fetch-projects',
+      'fetch-droplets',
+      'fetch-databases',
+      'fetch-reserved-ips',
+    ],
     implemented: true,
   },
 ];

@@ -32,7 +32,12 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
       Relationships.PROJECT_HAS_VOLUME,
       Relationships.PROJECT_HAS_RESERVED_IP,
     ],
-    dependsOn: [Steps.PROJECTS, Steps.DROPLETS, Steps.DATABASES],
+    dependsOn: [
+      Steps.PROJECTS,
+      Steps.DROPLETS,
+      Steps.DATABASES,
+      Steps.RESERVED_IPS,
+    ],
     executionHandler: fetchProjectResources,
   },
 ];
