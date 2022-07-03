@@ -179,7 +179,7 @@ export const Entities: Record<EntityIds, StepEntityMetadata> = {
   },
 };
 
-export const Relationships: Record<
+type RelationshipIds =
   | 'DROPLET_USES_VOLUME'
   | 'ACCOUNT_HAS_PROJECT'
   | 'ACCOUNT_HAS_SSH_KEY'
@@ -189,108 +189,116 @@ export const Relationships: Record<
   | 'PROJECT_HAS_DROPLET'
   | 'PROJECT_HAS_DATABASE'
   | 'PROJECT_HAS_VOLUME'
+  | 'PROJECT_HAS_RESERVED_IP'
   | 'DOMAIN_HAS_DOMAIN_RECORD'
   | 'DATABASE_HAS_BACKUP'
   | 'DROPLET_HAS_ALERT_POLICY'
   | 'REGION_HOSTS_DROPLET'
   | 'REGION_HOSTS_RESERVED_IP'
-  | 'REGION_HOSTS_VOLUME',
-  StepRelationshipMetadata
-> = {
-  DROPLET_USES_VOLUME: {
-    sourceType: Entities.DROPLET._type,
-    targetType: Entities.VOLUME._type,
-    _type: 'digitalocean_droplet_uses_volume',
-    _class: RelationshipClass.USES,
-  },
-  ACCOUNT_HAS_PROJECT: {
-    sourceType: Entities.ACCOUNT._type,
-    targetType: Entities.PROJECT._type,
-    _type: 'digitalocean_account_has_project',
-    _class: RelationshipClass.HAS,
-  },
-  // TODO: Consider a different relationship class for this
-  // It's more common to see ACCESS_KEY_ALLOWS_ACCOUNT
-  // But I'm not 100% sure that's the correct relationship class for this case
-  ACCOUNT_HAS_SSH_KEY: {
-    sourceType: Entities.ACCOUNT._type,
-    targetType: Entities.SSH_KEY._type,
-    _type: 'digitalocean_account_has_ssh_key',
-    _class: RelationshipClass.HAS,
-  },
-  DROPLET_USES_RESERVED_IP: {
-    sourceType: Entities.DROPLET._type,
-    targetType: Entities.RESERVED_IP._type,
-    _type: 'digitalocean_droplet_uses_reserved_ip',
-    _class: RelationshipClass.USES,
-  },
-  DROPLET_HAS_SNAPSHOT: {
-    sourceType: Entities.DROPLET._type,
-    targetType: Entities.DROPLET_SNAPSHOT._type,
-    _type: 'digitalocean_droplet_has_snapshot',
-    _class: RelationshipClass.HAS,
-  },
-  DROPLET_HAS_ALERT_POLICY: {
-    sourceType: Entities.DROPLET._type,
-    targetType: Entities.ALERT_POLICY._type,
-    _type: 'digitalocean_droplet_has_alert_policy',
-    _class: RelationshipClass.HAS,
-  },
-  VOLUME_HAS_SNAPSHOT: {
-    sourceType: Entities.VOLUME._type,
-    targetType: Entities.VOLUME_SNAPSHOT._type,
-    _type: 'digitalocean_volume_has_snapshot',
-    _class: RelationshipClass.HAS,
-  },
-  PROJECT_HAS_DROPLET: {
-    sourceType: Entities.PROJECT._type,
-    targetType: Entities.DROPLET._type,
-    _type: 'digitalocean_project_has_droplet',
-    _class: RelationshipClass.HAS,
-  },
-  PROJECT_HAS_DATABASE: {
-    sourceType: Entities.PROJECT._type,
-    targetType: Entities.DATABASE._type,
-    _type: 'digitalocean_project_has_database',
-    _class: RelationshipClass.HAS,
-  },
-  DOMAIN_HAS_DOMAIN_RECORD: {
-    sourceType: Entities.DOMAIN._type,
-    targetType: Entities.DOMAIN_RECORD._type,
-    _type: 'digitalocean_domain_has_domain_record',
-    _class: RelationshipClass.HAS,
-  },
-  DATABASE_HAS_BACKUP: {
-    sourceType: Entities.DATABASE._type,
-    targetType: Entities.DATABASE_BACKUP._type,
-    _type: 'digitalocean_database_has_backup',
-    _class: RelationshipClass.HAS,
-  },
-  REGION_HOSTS_DROPLET: {
-    sourceType: Entities.REGION._type,
-    targetType: Entities.DROPLET._type,
-    _type: 'digitalocean_region_hosts_droplet',
-    _class: RelationshipClass.HOSTS,
-  },
-  REGION_HOSTS_RESERVED_IP: {
-    sourceType: Entities.REGION._type,
-    targetType: Entities.RESERVED_IP._type,
-    _type: 'digitalocean_region_hosts_reserved_ip',
-    _class: RelationshipClass.HOSTS,
-  },
-  REGION_HOSTS_VOLUME: {
-    sourceType: Entities.REGION._type,
-    targetType: Entities.VOLUME._type,
-    _type: 'digitalocean_region_hosts_volume',
-    _class: RelationshipClass.HOSTS,
-  },
-  PROJECT_HAS_VOLUME: {
-    sourceType: Entities.PROJECT._type,
-    targetType: Entities.VOLUME._type,
-    _type: 'digitalocean_project_has_volume',
-    _class: RelationshipClass.HAS,
-  },
-};
+  | 'REGION_HOSTS_VOLUME';
+
+export const Relationships: Record<RelationshipIds, StepRelationshipMetadata> =
+  {
+    DROPLET_USES_VOLUME: {
+      sourceType: Entities.DROPLET._type,
+      targetType: Entities.VOLUME._type,
+      _type: 'digitalocean_droplet_uses_volume',
+      _class: RelationshipClass.USES,
+    },
+    ACCOUNT_HAS_PROJECT: {
+      sourceType: Entities.ACCOUNT._type,
+      targetType: Entities.PROJECT._type,
+      _type: 'digitalocean_account_has_project',
+      _class: RelationshipClass.HAS,
+    },
+    // TODO: Consider a different relationship class for this
+    // It's more common to see ACCESS_KEY_ALLOWS_ACCOUNT
+    // But I'm not 100% sure that's the correct relationship class for this case
+    ACCOUNT_HAS_SSH_KEY: {
+      sourceType: Entities.ACCOUNT._type,
+      targetType: Entities.SSH_KEY._type,
+      _type: 'digitalocean_account_has_ssh_key',
+      _class: RelationshipClass.HAS,
+    },
+    DROPLET_USES_RESERVED_IP: {
+      sourceType: Entities.DROPLET._type,
+      targetType: Entities.RESERVED_IP._type,
+      _type: 'digitalocean_droplet_uses_reserved_ip',
+      _class: RelationshipClass.USES,
+    },
+    DROPLET_HAS_SNAPSHOT: {
+      sourceType: Entities.DROPLET._type,
+      targetType: Entities.DROPLET_SNAPSHOT._type,
+      _type: 'digitalocean_droplet_has_snapshot',
+      _class: RelationshipClass.HAS,
+    },
+    DROPLET_HAS_ALERT_POLICY: {
+      sourceType: Entities.DROPLET._type,
+      targetType: Entities.ALERT_POLICY._type,
+      _type: 'digitalocean_droplet_has_alert_policy',
+      _class: RelationshipClass.HAS,
+    },
+    VOLUME_HAS_SNAPSHOT: {
+      sourceType: Entities.VOLUME._type,
+      targetType: Entities.VOLUME_SNAPSHOT._type,
+      _type: 'digitalocean_volume_has_snapshot',
+      _class: RelationshipClass.HAS,
+    },
+    PROJECT_HAS_DROPLET: {
+      sourceType: Entities.PROJECT._type,
+      targetType: Entities.DROPLET._type,
+      _type: 'digitalocean_project_has_droplet',
+      _class: RelationshipClass.HAS,
+    },
+    PROJECT_HAS_DATABASE: {
+      sourceType: Entities.PROJECT._type,
+      targetType: Entities.DATABASE._type,
+      _type: 'digitalocean_project_has_database',
+      _class: RelationshipClass.HAS,
+    },
+    PROJECT_HAS_RESERVED_IP: {
+      sourceType: Entities.PROJECT._type,
+      targetType: Entities.RESERVED_IP._type,
+      _type: 'digitalocean_project_has_reserved_ip',
+      _class: RelationshipClass.HAS,
+    },
+    DOMAIN_HAS_DOMAIN_RECORD: {
+      sourceType: Entities.DOMAIN._type,
+      targetType: Entities.DOMAIN_RECORD._type,
+      _type: 'digitalocean_domain_has_domain_record',
+      _class: RelationshipClass.HAS,
+    },
+    DATABASE_HAS_BACKUP: {
+      sourceType: Entities.DATABASE._type,
+      targetType: Entities.DATABASE_BACKUP._type,
+      _type: 'digitalocean_database_has_backup',
+      _class: RelationshipClass.HAS,
+    },
+    REGION_HOSTS_DROPLET: {
+      sourceType: Entities.REGION._type,
+      targetType: Entities.DROPLET._type,
+      _type: 'digitalocean_region_hosts_droplet',
+      _class: RelationshipClass.HOSTS,
+    },
+    REGION_HOSTS_RESERVED_IP: {
+      sourceType: Entities.REGION._type,
+      targetType: Entities.RESERVED_IP._type,
+      _type: 'digitalocean_region_hosts_reserved_ip',
+      _class: RelationshipClass.HOSTS,
+    },
+    REGION_HOSTS_VOLUME: {
+      sourceType: Entities.REGION._type,
+      targetType: Entities.VOLUME._type,
+      _type: 'digitalocean_region_hosts_volume',
+      _class: RelationshipClass.HOSTS,
+    },
+    PROJECT_HAS_VOLUME: {
+      sourceType: Entities.PROJECT._type,
+      targetType: Entities.VOLUME._type,
+      _type: 'digitalocean_project_has_volume',
+      _class: RelationshipClass.HAS,
+    },
+  };
 
 export const TargetEntities: Record<string, StepEntityMetadata> = {
   SLACK_CHANNEL: {

@@ -30,6 +30,7 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
       Relationships.PROJECT_HAS_DROPLET,
       Relationships.PROJECT_HAS_DATABASE,
       Relationships.PROJECT_HAS_VOLUME,
+      Relationships.PROJECT_HAS_RESERVED_IP,
     ],
     dependsOn: [Steps.PROJECTS, Steps.DROPLETS, Steps.DATABASES],
     executionHandler: fetchProjectResources,
@@ -115,7 +116,7 @@ async function fetchProjectResources({
             const volumeEntity = await jobState.findEntity(key);
             if (!volumeEntity) {
               throw new IntegrationMissingKeyError(
-                `Resource entity not found: ${key}`,
+                `Volume entity not found: ${key}`,
               );
             }
 
@@ -124,6 +125,21 @@ async function fetchProjectResources({
                 from: projectEntity,
                 to: volumeEntity,
                 _class: Relationships.PROJECT_HAS_VOLUME._class,
+              }),
+            );
+          } else if (resourceType === 'floatingip') {
+            const ipEntity = await jobState.findEntity(key);
+            if (!ipEntity) {
+              throw new IntegrationMissingKeyError(
+                `Ip entity not found: ${key}`,
+              );
+            }
+
+            await jobState.addRelationship(
+              createDirectRelationship({
+                from: projectEntity,
+                to: ipEntity,
+                _class: Relationships.PROJECT_HAS_RESERVED_IP._class,
               }),
             );
           } else {
@@ -141,7 +157,7 @@ type ResourceType =
   | 'dbaas'
   | 'domain'
   | 'droplet'
-  | 'floating_ip'
+  | 'floatingip'
   | 'kubernetes'
   | 'load_balancer'
   | 'space'
