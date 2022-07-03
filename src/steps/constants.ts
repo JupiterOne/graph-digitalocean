@@ -26,6 +26,7 @@ export const Steps = {
   CERTIFICATES: 'fetch-certificates',
   CONTAINER_REGISTRIES: 'fetch-container-registries',
   BUILD_VOLUME_DROPLET_RELATIONSHIPS: 'build-volume-droplet-relationships',
+  KUBERNETES_CLUSTER: 'fetch-kubernetes-clusters',
 };
 
 type EntityIds =
@@ -45,6 +46,7 @@ type EntityIds =
   | 'VOLUME_SNAPSHOT'
   | 'REGION'
   | 'ALERT_POLICY'
+  | 'KUBERNETES_CLUSTER'
   | 'CERTIFICATE'
   | 'CONTAINER_REGISTRY'
   | 'FIREWALL';
@@ -177,6 +179,11 @@ export const Entities: Record<EntityIds, StepEntityMetadata> = {
     _type: 'digitalocean_container_registry',
     _class: ['Repository'],
   },
+  KUBERNETES_CLUSTER: {
+    resourceName: 'Kubernetes Cluster',
+    _type: 'digitalocean_kubernetes_cluster',
+    _class: ['Cluster'],
+  },
 };
 
 type RelationshipIds =
@@ -190,6 +197,7 @@ type RelationshipIds =
   | 'PROJECT_HAS_DATABASE'
   | 'PROJECT_HAS_VOLUME'
   | 'PROJECT_HAS_RESERVED_IP'
+  | 'PROJECT_HAS_KUBERNETES_CLUSTER'
   | 'DOMAIN_HAS_DOMAIN_RECORD'
   | 'DATABASE_HAS_BACKUP'
   | 'DROPLET_HAS_ALERT_POLICY'
@@ -296,6 +304,12 @@ export const Relationships: Record<RelationshipIds, StepRelationshipMetadata> =
       sourceType: Entities.PROJECT._type,
       targetType: Entities.VOLUME._type,
       _type: 'digitalocean_project_has_volume',
+      _class: RelationshipClass.HAS,
+    },
+    PROJECT_HAS_KUBERNETES_CLUSTER: {
+      sourceType: Entities.PROJECT._type,
+      targetType: Entities.KUBERNETES_CLUSTER._type,
+      _type: 'digitalocean_project_has_kubernetes_cluster',
       _class: RelationshipClass.HAS,
     },
   };

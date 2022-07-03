@@ -12,6 +12,7 @@ export type DataKey =
   | 'policies'
   | 'databases'
   | 'images'
+  | 'kubernetes_clusters'
   | 'registry'
   | 'firewalls'
   | 'backups';

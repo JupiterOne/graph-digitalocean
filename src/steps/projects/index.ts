@@ -31,12 +31,14 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
       Relationships.PROJECT_HAS_DATABASE,
       Relationships.PROJECT_HAS_VOLUME,
       Relationships.PROJECT_HAS_RESERVED_IP,
+      Relationships.PROJECT_HAS_KUBERNETES_CLUSTER,
     ],
     dependsOn: [
       Steps.PROJECTS,
       Steps.DROPLETS,
       Steps.DATABASES,
       Steps.RESERVED_IPS,
+      Steps.KUBERNETES_CLUSTER,
     ],
     executionHandler: fetchProjectResources,
   },
@@ -145,6 +147,21 @@ async function fetchProjectResources({
                 from: projectEntity,
                 to: ipEntity,
                 _class: Relationships.PROJECT_HAS_RESERVED_IP._class,
+              }),
+            );
+          } else if (resourceType === 'kubernetes') {
+            const k8Entity = await jobState.findEntity(key);
+            if (!k8Entity) {
+              throw new IntegrationMissingKeyError(
+                `Kubernetes entity not found: ${key}`,
+              );
+            }
+
+            await jobState.addRelationship(
+              createDirectRelationship({
+                from: projectEntity,
+                to: k8Entity,
+                _class: Relationships.PROJECT_HAS_KUBERNETES_CLUSTER._class,
               }),
             );
           } else {

@@ -6,6 +6,7 @@ import { domainSteps } from './domains';
 import { dropletSteps } from './droplets';
 import { firewallSteps } from './firewall';
 import { ipSteps } from './ips';
+import { kubernetesSteps } from './k8s';
 import { sshKeySteps } from './keys';
 import { projectSteps } from './projects';
 import { regionsSteps } from './regions';
@@ -28,6 +29,7 @@ const integrationSteps = [
   ...regionsSteps,
   ...certificateSteps,
   ...registrySteps,
+  ...kubernetesSteps,
 ];
 
 export { integrationSteps };

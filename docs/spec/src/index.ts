@@ -8,6 +8,7 @@ import { domainSpec } from './domains';
 import { dropletsSpec } from './droplets';
 import { firewallSpec } from './firewall';
 import { ipSpec } from './ip';
+import { kubernetesSpec } from './k8s';
 import { projectSpec } from './projects';
 import { regionSpec } from './region';
 import { snapshotSpec } from './snapshots';
@@ -26,5 +27,6 @@ export const invocationConfig: IntegrationSpecConfig<IntegrationConfig> = {
     ...firewallSpec,
     ...alertPolicySpec,
     ...regionSpec,
+    ...kubernetesSpec,
   ],
 };

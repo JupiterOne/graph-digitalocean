@@ -36,6 +36,7 @@ import { DigitalOceanFirewall } from './types/firewallType';
 import { DigitalOceanAlertPolicy } from './types/alertPolicy';
 import { DigitalOceanCertificate } from './types/certificateType';
 import { DigitalOceanContainerRegistry } from './types/registryType';
+import { DigitalOceanKubernetesCluster } from './types/kubernetesType';
 
 export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
 
@@ -92,6 +93,18 @@ export class APIClient {
         }
       }
     } while (next);
+  }
+
+  async iterateKubernetesClusters(
+    iteratee: ResourceIteratee<DigitalOceanKubernetesCluster>,
+  ) {
+    await this.iterateResources(
+      {
+        url: '/v2/kubernetes/clusters',
+        dataKey: 'kubernetes_clusters',
+      },
+      iteratee,
+    );
   }
 
   async iterateContainerRegistries(
