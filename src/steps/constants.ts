@@ -330,7 +330,7 @@ export const MappedRelationships: Record<
     sourceType: Entities.ALERT_POLICY._type,
     targetType: TargetEntities.SLACK_CHANNEL._type,
     _class: RelationshipClass.NOTIFIES,
-    _type: 'digitalocean_alert_policy_notifies_slack_team',
+    _type: 'digitalocean_alert_policy_notifies_slack_channel',
     direction: RelationshipDirection.FORWARD,
   },
 };

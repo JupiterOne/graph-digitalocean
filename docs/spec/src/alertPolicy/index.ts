@@ -1,4 +1,8 @@
-import { RelationshipClass, StepSpec } from '@jupiterone/integration-sdk-core';
+import {
+  RelationshipClass,
+  RelationshipDirection,
+  StepSpec,
+} from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../../../src/config';
 
 export const alertPolicySpec: StepSpec<IntegrationConfig>[] = [
@@ -20,7 +24,15 @@ export const alertPolicySpec: StepSpec<IntegrationConfig>[] = [
         _class: RelationshipClass.HAS,
       },
     ],
-    mappedRelationships: [],
+    mappedRelationships: [
+      {
+        sourceType: 'digitalocean_alert_policy',
+        targetType: 'slack_channel',
+        _type: 'digitalocean_alert_policy_notifies_slack_channel',
+        _class: RelationshipClass.NOTIFIES,
+        direction: RelationshipDirection.FORWARD,
+      },
+    ],
     dependsOn: ['fetch-droplets'],
     implemented: true,
   },

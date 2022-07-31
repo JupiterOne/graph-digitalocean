@@ -142,6 +142,14 @@ The following relationships are created:
 | `digitalocean_region`   | **HOSTS**             | `digitalocean_volume`             |
 | `digitalocean_volume`   | **HAS**               | `digitalocean_volume_snapshot`    |
 
+### Mapped Relationships
+
+The following mapped relationships are created:
+
+| Source Entity `_type`       | Relationship `_class` | Target Entity `_type` | Direction |
+| --------------------------- | --------------------- | --------------------- | --------- |
+| `digitalocean_alert_policy` | **NOTIFIES**          | `*slack_channel*`     | FORWARD   |
+
 <!--
 ********************************************************************************
 END OF GENERATED DOCUMENTATION AFTER BELOW MARKER
