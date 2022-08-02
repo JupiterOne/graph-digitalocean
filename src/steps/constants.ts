@@ -273,7 +273,7 @@ export const Relationships: Record<RelationshipIds, StepRelationshipMetadata> =
     DOMAIN_HAS_DOMAIN_RECORD: {
       sourceType: Entities.DOMAIN._type,
       targetType: Entities.DOMAIN_RECORD._type,
-      _type: 'digitalocean_domain_has_domain_record',
+      _type: 'digitalocean_domain_has_record',
       _class: RelationshipClass.HAS,
     },
     DATABASE_HAS_BACKUP: {

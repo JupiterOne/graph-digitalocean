@@ -35,7 +35,7 @@ export const domainSpec: StepSpec<IntegrationConfig>[] = [
         sourceType: 'digitalocean_domain',
         targetType: 'digitalocean_domain_record',
         _class: RelationshipClass.HAS,
-        _type: 'digitalocean_domain_has_domain_record',
+        _type: 'digitalocean_domain_has_record',
       },
     ],
     dependsOn: ['fetch-domains'],

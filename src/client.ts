@@ -221,7 +221,7 @@ export class APIClient {
   ) {
     await this.iterateResources<DigitalOceanDomainRecord>(
       {
-        url: `/v2/${domainName}/records`,
+        url: `/v2/domains/${domainName}/records`,
         dataKey: 'domain_records',
       },
       iteratee,
@@ -285,7 +285,7 @@ export class APIClient {
   }
 
   async getDatabaseCA(uuid: string): Promise<DigitalOceanDatabaseCertificate> {
-    const url = `/v2/databases/${uuid}/certificates`;
+    const url = `/v2/databases/${uuid}/ca`;
     try {
       const response = await request<DigitalOceanDatabaseCertificateResponse>({
         baseURL: this.BASE_URL,
