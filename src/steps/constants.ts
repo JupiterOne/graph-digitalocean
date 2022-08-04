@@ -198,6 +198,7 @@ type RelationshipIds =
   | 'PROJECT_HAS_VOLUME'
   | 'PROJECT_HAS_RESERVED_IP'
   | 'PROJECT_HAS_KUBERNETES_CLUSTER'
+  | 'PROJECT_HAS_DOMAIN'
   | 'DOMAIN_HAS_DOMAIN_RECORD'
   | 'DATABASE_HAS_BACKUP'
   | 'DROPLET_HAS_ALERT_POLICY'
@@ -310,6 +311,12 @@ export const Relationships: Record<RelationshipIds, StepRelationshipMetadata> =
       sourceType: Entities.PROJECT._type,
       targetType: Entities.KUBERNETES_CLUSTER._type,
       _type: 'digitalocean_project_has_kubernetes_cluster',
+      _class: RelationshipClass.HAS,
+    },
+    PROJECT_HAS_DOMAIN: {
+      sourceType: Entities.PROJECT._type,
+      targetType: Entities.DOMAIN._type,
+      _type: 'digitalocean_project_has_domain',
       _class: RelationshipClass.HAS,
     },
   };

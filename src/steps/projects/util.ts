@@ -43,6 +43,8 @@ export async function createProjectEntityRelationship(
     entityKey = createEntityKey(Entities.RESERVED_IP, key);
   } else if (resourceType === 'kubernetes') {
     entityKey = createEntityKey(Entities.KUBERNETES_CLUSTER, key);
+  } else if (resourceType === 'domain') {
+    entityKey = createEntityKey(Entities.DOMAIN, key);
   } else {
     logger.warn(`Unhandled resource type: ${resourceType}`);
     entityKey = undefined;

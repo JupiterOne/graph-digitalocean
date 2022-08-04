@@ -133,6 +133,7 @@ The following relationships are created:
 | `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`        |
 | `digitalocean_droplet`  | **USES**              | `digitalocean_volume`             |
 | `digitalocean_project`  | **HAS**               | `digitalocean_database`           |
+| `digitalocean_project`  | **HAS**               | `digitalocean_domain`             |
 | `digitalocean_project`  | **HAS**               | `digitalocean_droplet`            |
 | `digitalocean_project`  | **HAS**               | `digitalocean_kubernetes_cluster` |
 | `digitalocean_project`  | **HAS**               | `digitalocean_reserved_ip`        |

@@ -58,6 +58,12 @@ export const projectSpec: StepSpec<IntegrationConfig>[] = [
         _type: 'digitalocean_project_has_kubernetes_cluster',
         _class: RelationshipClass.HAS,
       },
+      {
+        sourceType: 'digitalocean_project',
+        targetType: 'digitalocean_domain',
+        _type: 'digitalocean_project_has_domain',
+        _class: RelationshipClass.HAS,
+      },
     ],
     dependsOn: [
       'fetch-projects',
@@ -65,6 +71,7 @@ export const projectSpec: StepSpec<IntegrationConfig>[] = [
       'fetch-databases',
       'fetch-reserved-ips',
       'fetch-kubernetes-clusters',
+      'fetch-domains',
     ],
     implemented: true,
   },

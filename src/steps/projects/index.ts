@@ -32,6 +32,7 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
       Relationships.PROJECT_HAS_VOLUME,
       Relationships.PROJECT_HAS_RESERVED_IP,
       Relationships.PROJECT_HAS_KUBERNETES_CLUSTER,
+      Relationships.PROJECT_HAS_DOMAIN,
     ],
     dependsOn: [
       Steps.PROJECTS,
@@ -39,6 +40,7 @@ export const projectSteps: IntegrationStep<IntegrationConfig>[] = [
       Steps.DATABASES,
       Steps.RESERVED_IPS,
       Steps.KUBERNETES_CLUSTER,
+      Steps.DOMAINS,
     ],
     executionHandler: fetchProjectResources,
   },
