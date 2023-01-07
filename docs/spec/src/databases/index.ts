@@ -27,7 +27,14 @@ export const databaseSpec: StepSpec<IntegrationConfig>[] = [
         _class: ['Certificate'],
       },
     ],
-    relationships: [],
+    relationships: [
+      {
+        sourceType: 'digitalocean_database',
+        targetType: 'digitalocean_database_certificate',
+        _type: 'digitalocean_database_has_certificate',
+        _class: RelationshipClass.HAS,
+      },
+    ],
     dependsOn: ['fetch-databases'],
     implemented: true,
   },

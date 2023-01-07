@@ -1,4 +1,4 @@
-import { StepSpec } from '@jupiterone/integration-sdk-core';
+import { RelationshipClass, StepSpec } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../../../src/config';
 
 export const registrySpec: StepSpec<IntegrationConfig>[] = [
@@ -12,9 +12,16 @@ export const registrySpec: StepSpec<IntegrationConfig>[] = [
         _class: ['Repository'],
       },
     ],
-    relationships: [],
+    relationships: [
+      {
+        sourceType: 'digitalocean_account',
+        targetType: 'digitalocean_container_registry',
+        _class: RelationshipClass.HAS,
+        _type: 'digitalocean_account_has_container_registry',
+      },
+    ],
     mappedRelationships: [],
-    dependsOn: [],
+    dependsOn: ['fetch-account'],
     implemented: true,
   },
 ];

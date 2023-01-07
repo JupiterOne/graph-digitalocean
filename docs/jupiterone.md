@@ -109,7 +109,6 @@ The following entities are created:
 | Domain Record        | `digitalocean_domain_record`        | `DomainRecord`      |
 | Droplet              | `digitalocean_droplet`              | `Host`              |
 | Droplet Snapshot     | `digitalocean_droplet_snapshot`     | `Image`             |
-| Firewall             | `digitalocean_firewall`             | `Firewall`          |
 | Kubernetes Cluster   | `digitalocean_kubernetes_cluster`   | `Cluster`           |
 | Project              | `digitalocean_project`              | `Project`           |
 | Region               | `digitalocean_region`               | `Site`              |
@@ -122,26 +121,28 @@ The following entities are created:
 
 The following relationships are created:
 
-| Source Entity `_type`   | Relationship `_class` | Target Entity `_type`             |
-| ----------------------- | --------------------- | --------------------------------- |
-| `digitalocean_account`  | **HAS**               | `digitalocean_project`            |
-| `digitalocean_account`  | **HAS**               | `digitalocean_ssh_key`            |
-| `digitalocean_database` | **HAS**               | `digitalocean_database_backup`    |
-| `digitalocean_domain`   | **HAS**               | `digitalocean_domain_record`      |
-| `digitalocean_droplet`  | **HAS**               | `digitalocean_alert_policy`       |
-| `digitalocean_droplet`  | **HAS**               | `digitalocean_droplet_snapshot`   |
-| `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`        |
-| `digitalocean_droplet`  | **USES**              | `digitalocean_volume`             |
-| `digitalocean_project`  | **HAS**               | `digitalocean_database`           |
-| `digitalocean_project`  | **HAS**               | `digitalocean_domain`             |
-| `digitalocean_project`  | **HAS**               | `digitalocean_droplet`            |
-| `digitalocean_project`  | **HAS**               | `digitalocean_kubernetes_cluster` |
-| `digitalocean_project`  | **HAS**               | `digitalocean_reserved_ip`        |
-| `digitalocean_project`  | **HAS**               | `digitalocean_volume`             |
-| `digitalocean_region`   | **HOSTS**             | `digitalocean_droplet`            |
-| `digitalocean_region`   | **HOSTS**             | `digitalocean_reserved_ip`        |
-| `digitalocean_region`   | **HOSTS**             | `digitalocean_volume`             |
-| `digitalocean_volume`   | **HAS**               | `digitalocean_volume_snapshot`    |
+| Source Entity `_type`   | Relationship `_class` | Target Entity `_type`               |
+| ----------------------- | --------------------- | ----------------------------------- |
+| `digitalocean_account`  | **HAS**               | `digitalocean_container_registry`   |
+| `digitalocean_account`  | **HAS**               | `digitalocean_project`              |
+| `digitalocean_account`  | **HAS**               | `digitalocean_ssh_key`              |
+| `digitalocean_database` | **HAS**               | `digitalocean_database_backup`      |
+| `digitalocean_database` | **HAS**               | `digitalocean_database_certificate` |
+| `digitalocean_domain`   | **HAS**               | `digitalocean_domain_record`        |
+| `digitalocean_droplet`  | **HAS**               | `digitalocean_alert_policy`         |
+| `digitalocean_droplet`  | **HAS**               | `digitalocean_droplet_snapshot`     |
+| `digitalocean_droplet`  | **USES**              | `digitalocean_reserved_ip`          |
+| `digitalocean_droplet`  | **USES**              | `digitalocean_volume`               |
+| `digitalocean_project`  | **HAS**               | `digitalocean_database`             |
+| `digitalocean_project`  | **HAS**               | `digitalocean_domain`               |
+| `digitalocean_project`  | **HAS**               | `digitalocean_droplet`              |
+| `digitalocean_project`  | **HAS**               | `digitalocean_kubernetes_cluster`   |
+| `digitalocean_project`  | **HAS**               | `digitalocean_reserved_ip`          |
+| `digitalocean_project`  | **HAS**               | `digitalocean_volume`               |
+| `digitalocean_region`   | **HOSTS**             | `digitalocean_droplet`              |
+| `digitalocean_region`   | **HOSTS**             | `digitalocean_reserved_ip`          |
+| `digitalocean_region`   | **HOSTS**             | `digitalocean_volume`               |
+| `digitalocean_volume`   | **HAS**               | `digitalocean_volume_snapshot`      |
 
 ### Mapped Relationships
 

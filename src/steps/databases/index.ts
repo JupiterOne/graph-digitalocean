@@ -28,7 +28,7 @@ export const databaseSteps: IntegrationStep<IntegrationConfig>[] = [
     id: Steps.DATABASE_CERTIFICATES,
     name: 'Fetch Database Certificates',
     entities: [Entities.DATABASE_CERTIFICATE],
-    relationships: [],
+    relationships: [Relationships.DATABASE_HAS_CERTIFICATE],
     dependsOn: [Steps.DATABASES],
     executionHandler: fetchDatabaseCertificates,
   },
@@ -64,8 +64,16 @@ async function fetchDatabaseCertificates({
       const databaseCert = await client.getDatabaseCA(
         databaseEntity.id as string,
       );
-      await jobState.addEntity(
+      const databasePublicCert = await jobState.addEntity(
         createDatabaseCertificateEntity(databaseEntity, databaseCert),
+      );
+
+      await jobState.addRelationship(
+        createDirectRelationship({
+          from: databaseEntity,
+          to: databasePublicCert,
+          _class: RelationshipClass.HAS,
+        }),
       );
     },
   );

@@ -204,7 +204,9 @@ type RelationshipIds =
   | 'DROPLET_HAS_ALERT_POLICY'
   | 'REGION_HOSTS_DROPLET'
   | 'REGION_HOSTS_RESERVED_IP'
-  | 'REGION_HOSTS_VOLUME';
+  | 'REGION_HOSTS_VOLUME'
+  | 'ACCOUNT_HAS_REGISTRY'
+  | 'DATABASE_HAS_CERTIFICATE';
 
 export const Relationships: Record<RelationshipIds, StepRelationshipMetadata> =
   {
@@ -218,6 +220,12 @@ export const Relationships: Record<RelationshipIds, StepRelationshipMetadata> =
       sourceType: Entities.ACCOUNT._type,
       targetType: Entities.PROJECT._type,
       _type: 'digitalocean_account_has_project',
+      _class: RelationshipClass.HAS,
+    },
+    ACCOUNT_HAS_REGISTRY: {
+      sourceType: Entities.ACCOUNT._type,
+      targetType: Entities.CONTAINER_REGISTRY._type,
+      _type: 'digitalocean_account_has_container_registry',
       _class: RelationshipClass.HAS,
     },
     // TODO: Consider a different relationship class for this
@@ -281,6 +289,12 @@ export const Relationships: Record<RelationshipIds, StepRelationshipMetadata> =
       sourceType: Entities.DATABASE._type,
       targetType: Entities.DATABASE_BACKUP._type,
       _type: 'digitalocean_database_has_backup',
+      _class: RelationshipClass.HAS,
+    },
+    DATABASE_HAS_CERTIFICATE: {
+      sourceType: Entities.DATABASE._type,
+      targetType: Entities.DATABASE_CERTIFICATE._type,
+      _type: 'digitalocean_database_has_certificate',
       _class: RelationshipClass.HAS,
     },
     REGION_HOSTS_DROPLET: {
