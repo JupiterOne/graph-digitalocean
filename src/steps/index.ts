@@ -4,7 +4,6 @@ import { certificateSteps } from './certificates';
 import { databaseSteps } from './databases';
 import { domainSteps } from './domains';
 import { dropletSteps } from './droplets';
-import { firewallSteps } from './firewall';
 import { ipSteps } from './ips';
 import { kubernetesSteps } from './k8s';
 import { sshKeySteps } from './keys';
@@ -24,7 +23,6 @@ const integrationSteps = [
   ...sshKeySteps,
   ...databaseSteps,
   ...snapshotsSteps,
-  ...firewallSteps,
   ...alertPolicySteps,
   ...regionsSteps,
   ...certificateSteps,

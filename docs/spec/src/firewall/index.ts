@@ -15,6 +15,6 @@ export const firewallSpec: StepSpec<IntegrationConfig>[] = [
     relationships: [],
     mappedRelationships: [],
     dependsOn: ['fetch-droplets'],
-    implemented: true,
+    implemented: false,
   },
 ];

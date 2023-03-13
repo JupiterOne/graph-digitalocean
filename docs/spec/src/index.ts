@@ -13,20 +13,24 @@ import { projectSpec } from './projects';
 import { regionSpec } from './region';
 import { snapshotSpec } from './snapshots';
 import { volumeSpec } from './volumes';
+import { registrySpec } from './registry';
+import { certificateSpec } from './certificate';
 
 export const invocationConfig: IntegrationSpecConfig<IntegrationConfig> = {
   integrationSteps: [
     ...accountSpec,
-    ...dropletsSpec,
-    ...projectSpec,
-    ...volumeSpec,
-    ...domainSpec,
-    ...ipSpec,
-    ...databaseSpec,
-    ...snapshotSpec,
-    ...firewallSpec,
     ...alertPolicySpec,
-    ...regionSpec,
+    ...certificateSpec,
+    ...databaseSpec,
+    ...domainSpec,
+    ...dropletsSpec,
+    ...firewallSpec,
+    ...ipSpec,
     ...kubernetesSpec,
+    ...projectSpec,
+    ...regionSpec,
+    ...registrySpec,
+    ...snapshotSpec,
+    ...volumeSpec,
   ],
 };

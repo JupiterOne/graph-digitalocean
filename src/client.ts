@@ -77,8 +77,12 @@ export class APIClient {
         });
 
         const data = response.data[dataKey];
-        for (const datum of data) {
-          await iteratee(datum);
+        if (Array.isArray(data)) {
+          for (const datum of data) {
+            await iteratee(datum);
+          }
+        } else {
+          await iteratee(data);
         }
         next = response.data.links?.pages?.next;
       } catch (err) {
