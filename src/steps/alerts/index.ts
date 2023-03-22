@@ -71,7 +71,7 @@ async function fetchAlertPolicies({
         await jobState.addRelationship(
           createMappedRelationship({
             source: alertPolicyEntity,
-            targetFilterKeys: ['teamId', 'name'],
+            targetFilterKeys: [['teamId', 'name']],
             _type:
               MappedRelationships.ALERT_POLICY_NOTIFIES_SLACK_CHANNEL._type,
             target: {
